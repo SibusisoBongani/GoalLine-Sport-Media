@@ -274,6 +274,33 @@ padding: 5px;
   transform: scale(1.05);
   box-shadow: 0 6px 10px rgba(0,0,0,0.2);
 }
+.share-container {
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+.share-btn {
+  background-color: #0a0a71;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.share-btn i {
+  font-size: 16px;
+}
+
+.share-btn:hover {
+  background-color: #3333aa;
+}
+
+
 
 /* Mobile View */
 @media (max-width: 600px) {
@@ -313,6 +340,11 @@ padding: 5px;
     min-width: 100%;
     text-align: center;
   }
+
+  .footer {
+    font-size: 11px;
+  }
+}
 
   .footer {
     font-size: 11px;
