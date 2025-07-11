@@ -343,17 +343,30 @@ Gomora United have won the 2025 ABC Motsepe League National Playoffs, earning pr
 </footer>
 
 <script>
-// existing Read More for article text
+
 document.querySelectorAll(".read-more").forEach(btn => {
   btn.addEventListener("click", () => {
     const moreText = btn.previousElementSibling;
-    if (moreText.style.display === "none") {
-      moreText.style.display = "inline";
-      btn.textContent = "Read less";
-    } else {
-      moreText.style.display = "none";
-      btn.textContent = "Read more";
-    }
+  const articlesContainer = document.querySelector(".articles");
+
+if (moreText.style.display === "none") {
+  moreText.style.display = "inline";
+  btn.textContent = "Read less";
+  articlesContainer.classList.add("expanded");
+} else {
+  moreText.style.display = "none";
+  btn.textContent = "Read more";
+
+ 
+  const anyExpanded = Array.from(document.querySelectorAll(".more-text"))
+    .some(el => el.style.display !== "none");
+  
+  if (!anyExpanded) {
+    articlesContainer.classList.remove("expanded");
+  }
+}
+
+
   });
 });
 
@@ -369,12 +382,12 @@ articles.sort((a, b) => {
 
 articles.forEach(article => articlesContainer.appendChild(article));
 
-// NEW: Load More / View Less
+// Load More / View Less
 const loadMoreBtn = document.getElementById("loadMore");
 const articlesCount = articles.length;
 let visibleCount = 8;
 
-// Hide the button if total articles are <= 8
+
 if (articlesCount <= 8) {
   loadMoreBtn.style.display = "none";
 }
@@ -395,16 +408,16 @@ function updateVisibleArticles() {
   }
 }
 
-// initial display
+
 updateVisibleArticles();
 
 loadMoreBtn.addEventListener("click", () => {
   if (visibleCount >= articlesCount) {
-    // reset to first 8 or total if less than 8
+
     visibleCount = Math.min(8, articlesCount);
     window.scrollTo({ top: articlesContainer.offsetTop, behavior: 'smooth' });
   } else {
-    // show 8 more or up to total articles
+  
     visibleCount += 8;
     if (visibleCount > articlesCount) {
       visibleCount = articlesCount;
@@ -419,7 +432,7 @@ document.querySelectorAll(".share-btn").forEach(button => {
     if (!article) return;
 
     const articleId = article.id;
-    // Construct the URL to the article with the anchor (e.g., https://yoursite.com/index.html#article10)
+    
     const shareUrl = `${window.location.origin}${window.location.pathname}#${articleId}`;
 
     // Copy the URL to clipboard
@@ -430,7 +443,7 @@ document.querySelectorAll(".share-btn").forEach(button => {
         alert(`Could not copy automatically. Here is the link:\n${shareUrl}`);
       });
     } else {
-      // Fallback if Clipboard API not supported
+     
       prompt('Copy this link:', shareUrl);
     }
   });
