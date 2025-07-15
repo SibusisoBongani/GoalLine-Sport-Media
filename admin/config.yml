@@ -2,14 +2,15 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "images/uploads"  # Where images go
-public_folder: "/images/uploads"
+media_folder: "images/uploads"  # Where uploaded images are saved
+public_folder: "/images/uploads"  # How they appear in posts
 
 collections:
-  - name: "posts"
+  - name: "articles"  # Changed from "posts" to match your UI
     label: "Articles"
-    folder: "_posts/"
+    folder: "_posts/"  # Must match your actual posts folder
     create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Date", name: "date", widget: "datetime"}
