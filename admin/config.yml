@@ -1,19 +1,18 @@
 backend:
   name: git-gateway
-  branch: main 
+  branch: main
 
-media_folder: "images/uploads"  # Stores uploaded images
+media_folder: "images/uploads"  # Where images go
 public_folder: "/images/uploads"
 
 collections:
   - name: "posts"
     label: "Articles"
-    folder: "_posts/"  
+    folder: "_posts/"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
-      - { label: "Author", name: "author", widget: "string", default: "Goalline Staff" }
-      - { label: "Image", name: "image", widget: "image", required: false }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Author", name: "author", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Image", name: "image", widget: "image", required: false}
