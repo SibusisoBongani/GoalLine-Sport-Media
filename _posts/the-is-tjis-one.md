@@ -1,5 +1,5 @@
 ---
-title: "the is tjis one "
+title: the one just created
 date: 2025-07-17T14:53:59.736Z
 author: bongani
 image: /images/uploads/screenshot-15-.png
