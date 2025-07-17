@@ -1,10 +1,8 @@
-console.log("Force-rebuilding at: " + new Date());
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
-// Update this path if your posts are in 'posts' instead of '_posts'
-const postsDir = path.join(__dirname, '../_posts'); 
+const postsDir = path.join(__dirname, '../_posts');
 const outputFile = path.join(__dirname, '../articles.json');
 
 const articles = fs.readdirSync(postsDir).map(file => {
