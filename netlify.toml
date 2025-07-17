@@ -1,3 +1,3 @@
 [build]
-  command = "npm run build && mkdir -p _site && cp -r *.html *.css *.js images scripts articles.json _site/"
+  command = "npm run build && mkdir -p _site && cp -r index.html gallery.html style.css images scripts articles.json _site/"
   publish = "_site"
