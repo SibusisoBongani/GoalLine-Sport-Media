@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "build": "node scripts/generate-json.js"
+    "build": "node scripts/generate-json.js",
+    "predeploy": "mkdir -p _site && cp -r *.html *.css *.js images scripts articles.json _site/"
   },
   "dependencies": {
     "gray-matter": "^4.0.3"
