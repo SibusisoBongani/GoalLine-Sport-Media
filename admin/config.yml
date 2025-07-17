@@ -2,18 +2,20 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "images/uploads"  # Where uploaded images are saved
-public_folder: "/images/uploads"  # How they appear in posts
+media_folder: "images"
+public_folder: "/images"
 
 collections:
-  - name: "articles"  # Changed from "posts" to match your UI
+  - name: "articles"
     label: "Articles"
-    folder: "_posts/"  # Must match your actual posts folder
+    folder: "posts"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Author", name: "author", widget: "string"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Image", name: "image", widget: "image", required: false}
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Author", name: "author", widget: "string", default: "Azola Ngxanga" }
+      - { label: "Featured Image", name: "image", widget: "image" }
+      - { label: "Category", name: "category", widget: "select", options: ["PSL", "Banyana Banyana", "Orbit College"] }
+      - { label: "Excerpt (Short Preview)", name: "excerpt", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }
