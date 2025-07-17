@@ -2,20 +2,17 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "images"
-public_folder: "/images"
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
 
 collections:
-  - name: "articles"
-    label: "Articles"
-    folder: "posts"
+  - name: "posts"
+    label: "Posts"
+    folder: "_posts"
     create: true
-    slug: "{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
       - { label: "Author", name: "author", widget: "string", default: "Azola Ngxanga" }
       - { label: "Featured Image", name: "image", widget: "image" }
-      - { label: "Category", name: "category", widget: "select", options: ["PSL", "Banyana Banyana", "Orbit College"] }
-      - { label: "Excerpt (Short Preview)", name: "excerpt", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
