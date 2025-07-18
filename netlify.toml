@@ -1,8 +1,8 @@
 [build]
-  command = "npm run build"  # Let your package.json handle the build steps
+  command = "npm run build"  
   publish = "_site"
 
 [[redirects]]
   from = "/admin/*"
-  to = "/admin/index.html"  # Ensures the CMS panel loads correctly
+  to = "/admin/index.html"  
   status = 200
