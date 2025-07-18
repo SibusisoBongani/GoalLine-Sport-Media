@@ -1,13 +1,77 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GoalLine CMS</title>
- 
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoalLine CMS Admin</title>
+  
+  <!-- 1. First load React from reliable CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"></script>
+  
+  <!-- 2. Then load Netlify CMS -->
+  <script src="https://cdn.jsdelivr.net/npm/netlify-cms@2.10.192/dist/netlify-cms.js"></script>
+
+  <style>
+    /* Force mount point to exist */
+    body, html, #nc-root {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    /* Hide email login */
+    [data-testid="email-auth-container"] {
+      display: none !important;
+    }
+  </style>
 </head>
 <body>
+  <!-- 3. Explicit mount point -->
+  <div id="nc-root"></div>
 
+  <!-- 4. Nuclear-proof initialization -->
+  <script>
+    (function() {
+      // Verify all required globals exist
+      function verifyDeps() {
+        return window.React && window.ReactDOM && window.CMS;
+      }
+
+      // Initialize with retry logic
+      function initCMS() {
+        if (verifyDeps()) {
+          try {
+            window.CMS.init();
+            console.log('✅ CMS initialized successfully');
+            return true;
+          } catch (e) {
+            console.error('Initialization failed:', e);
+          }
+        }
+        return false;
+      }
+
+      // Start initialization process
+      if (!initCMS()) {
+        let attempts = 0;
+        const maxAttempts = 20; // 10 seconds total (500ms * 20)
+        const interval = setInterval(() => {
+          attempts++;
+          if (initCMS() || attempts >= maxAttempts) {
+            clearInterval(interval);
+            if (attempts >= maxAttempts) {
+              console.error('❌ Failed to initialize CMS after 10 seconds');
+              console.log('Current globals:', {
+                React: !!window.React,
+                ReactDOM: !!window.ReactDOM,
+                CMS: !!window.CMS
+              });
+            }
+          }
+        }, 500);
+      }
+    })();
+  </script>
 </body>
 </html>
