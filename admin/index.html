@@ -2,69 +2,24 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GoalLine CMS Admin</title>
-  
-  <!-- Load ALL dependencies as a single bundle -->
-  <script src="https://cdn.jsdelivr.net/combine/npm/react@17.0.2/umd/react.production.min.js,npm/react-dom@17.0.2/umd/react-dom.production.min.js,npm/netlify-cms@2.10.192/dist/netlify-cms.min.js"></script>
-
-  <style>
-    /* Absolute positioning for mount point */
-    html, body, #cms-root {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-    /* Hide email login */
-    [data-testid="email-auth-container"] {
-      display: none !important;
-    }
-  </style>
+  <title>GoalLine CMS</title>
+  <!-- Single script load -->
+  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 </head>
 <body>
-  <!-- New mount point ID -->
-  <div id="cms-root"></div>
-
-  <!-- Simplified initialization -->
+  <!-- Only this element in body -->
+  <div id="nc-root"></div>
+  
   <script>
-    (function() {
-      // Create mount point if missing
-      const root = document.getElementById('cms-root') || document.body;
-      
-      // Initialize when CMS is ready
-      function init() {
-        if (window.CMS) {
-          window.CMS.init();
-          console.log('CMS successfully initialized');
-        } else {
-          console.error('CMS still not available');
-          document.body.innerHTML = `
-            <div style="padding: 2rem; font-family: sans-serif;">
-              <h1>CMS Loading Failed</h1>
-              <p>Please refresh the page. If the problem continues:</p>
-              <ol>
-                <li>Check your network connection</li>
-                <li>Disable ad blockers</li>
-                <li>Try a different browser</li>
-              </ol>
-            </div>
-          `;
-        }
+    // Minimal initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      if(window.CMS) {
+        CMS.init();
+        console.log('CMS initialized successfully');
+      } else {
+        console.error('CMS not loaded - check browser console for errors');
       }
-
-      // Try immediately, then every 500ms for 5 seconds
-      let attempts = 0;
-      const maxAttempts = 10;
-      const tryInit = setInterval(() => {
-        attempts++;
-        if (window.CMS || attempts >= maxAttempts) {
-          clearInterval(tryInit);
-          init();
-        }
-      }, 500);
-    })();
+    });
   </script>
 </body>
 </html>
