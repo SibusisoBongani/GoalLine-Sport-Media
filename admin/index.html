@@ -2,24 +2,70 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GoalLine CMS</title>
-  <!-- Single script load -->
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+  
+  <!-- Version-locked dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/netlify-cms-app@2.15.72/dist/netlify-cms-app.js"></script>
+
+  <style>
+    /* Critical mount point styling */
+    html, body, #cms-root {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
 </head>
 <body>
-  <!-- Only this element in body -->
-  <div id="nc-root"></div>
-  
+  <!-- Updated mount point ID -->
+  <div id="cms-root"></div>
+
+  <!-- Version-specific initialization -->
   <script>
-    // Minimal initialization
-    document.addEventListener('DOMContentLoaded', () => {
-      if(window.CMS) {
-        CMS.init();
-        console.log('CMS initialized successfully');
-      } else {
-        console.error('CMS not loaded - check browser console for errors');
+    (function() {
+      function initCMS() {
+        if (window.netlifyCmsApp) {
+          netlifyCmsApp.init({
+            config: {
+              backend: {
+                name: 'git-gateway',
+                branch: 'main'
+              }
+            }
+          });
+          console.log('CMS successfully initialized');
+          return true;
+        }
+        return false;
       }
-    });
+
+      if (!initCMS()) {
+        const interval = setInterval(() => {
+          if (initCMS()) {
+            clearInterval(interval);
+          }
+        }, 500);
+        
+        setTimeout(() => {
+          clearInterval(interval);
+          document.getElementById('cms-root').innerHTML = `
+            <div style="padding: 20px; font-family: sans-serif;">
+              <h2>CMS Failed to Load</h2>
+              <p>Try these steps:</p>
+              <ol>
+                <li>Hard refresh (Ctrl+F5)</li>
+                <li>Check browser console for errors</li>
+                <li>Verify config.yml exists at /admin/config.yml</li>
+              </ol>
+            </div>
+          `;
+        }, 10000);
+      }
+    })();
   </script>
 </body>
 </html>
