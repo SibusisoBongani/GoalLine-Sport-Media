@@ -1,5 +1,6 @@
+
 [build]
-  command = "npm run build"  
+  command = "npm run build && cp -r admin _site/"
   publish = "_site"
 
 [[redirects]]
