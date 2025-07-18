@@ -4,10 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GoalLine CMS Admin</title>
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var script = document.createElement('script');
+      script.src = 'https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js';
+      document.head.appendChild(script);
+    });
+  </script>
 </head>
 <body>
- 
-  <div id="nc-root"></div>
+
+  <div id="nc-root" style="min-height: 100vh;"></div>
 </body>
 </html>
