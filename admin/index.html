@@ -1,72 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GoalLine CMS Admin</title>
-  
-  <!-- Load everything through webpack -->
-  <script src="https://unpkg.com/netlify-cms-app@2.15.72/dist/netlify-cms-app.js"></script>
-  <script src="https://unpkg.com/netlify-cms@2.55.2/dist/netlify-cms.js"></script>
-  
-  <style>
-    /* Force mount point visibility */
-    #nc-root {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: block !important;
-    }
-    /* Hide email login */
-    [data-testid="email-auth-container"] {
-      display: none !important;
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoalLine CMS</title>
+ 
+  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 </head>
 <body>
-  <!-- Explicit mount point -->
-  <div id="nc-root"></div>
 
-  <!-- Nuclear-proof initialization -->
-  <script>
-    (function() {
-      // First verify all required globals exist
-      function verifyDeps() {
-        const required = ['React', 'ReactDOM', 'CMS', 'netlifyCmsApp'];
-        return required.every(dep => window[dep]);
-      }
-
-      // Initialize with retry logic
-      function init() {
-        if (verifyDeps()) {
-          try {
-            window.CMS.init();
-            console.log('CMS initialized successfully');
-            return true;
-          } catch (e) {
-            console.error('Initialization failed:', e);
-          }
-        }
-        return false;
-      }
-
-      // Start initialization attempt
-      if (!init()) {
-        const interval = setInterval(() => {
-          if (init()) {
-            clearInterval(interval);
-          }
-        }, 500);
-        
-        // Give up after 10 seconds
-        setTimeout(() => {
-          clearInterval(interval);
-          console.error('Failed to initialize CMS after 10 seconds');
-        }, 10000);
-      }
-    })();
-  </script>
 </body>
 </html>
