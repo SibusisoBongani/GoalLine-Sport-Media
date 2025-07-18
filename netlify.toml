@@ -1,9 +1,8 @@
-
 [build]
-  command = "npm run build && cp -r admin _site/"
+  command = "npm run build && cp -r index.html gallery.html style.css images scripts articles.json admin _site/"
   publish = "_site"
 
 [[redirects]]
   from = "/admin/*"
-  to = "/admin/index.html"  
+  to = "/admin/index.html"
   status = 200
