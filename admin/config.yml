@@ -1,0 +1,20 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "posts"
+    label: "Posts"
+    folder: "posts" 
+    create: true
+    fields: 
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Author", name: "author", widget: "string", default: "Azola Ngxanga" }
+      - { label: "Featured Image", name: "image", widget: "image" }
+      - { label: "Category", name: "category", widget: "select", options: ["PSL", "Banyana Banyana", "Orbit College"] }
+      - { label: "Excerpt (Short Preview)", name: "excerpt", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }
