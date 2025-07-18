@@ -6,35 +6,40 @@
   <title>GoalLine CMS Admin</title>
   
 
-  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-  
- 
-  <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/netlify-cms@2.10.192/dist/netlify-cms.js"></script>
+
   <style>
-    [data-testid="email-auth-container"] {
-      display: none !important;
-    }
+   
+    [data-testid="email-auth-container"] { display: none !important; }
+    
+    #nc-root { display: block !important; min-height: 100vh; }
   </style>
 </head>
 <body>
-  <div id="nc-root" style="min-height: 100vh;"></div>
-  
-  
+ 
+  <div id="nc-root"></div>
+
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof CMS !== 'undefined') {
-        CMS.init();
-      } else {
-        console.error('CMS not loaded - check script sources');
+    (function() {
+      function initCMS() {
+        if (window.CMS) {
+          CMS.init();
+          console.log('CMS initialized successfully');
+        } else {
+          console.error('CMS not loaded - retrying...');
+          setTimeout(initCMS, 500);
+        }
       }
-    });
-  </script>
-</body>
-</html>
-<body>
+      
   
-  <div id="nc-root" style="min-height: 100vh;"></div>
+      if (window.React && window.ReactDOM && window.CMS) {
+        initCMS();
+      } else {
+        window.addEventListener('load', initCMS);
+      }
+    })();
+  </script>
 </body>
 </html>
