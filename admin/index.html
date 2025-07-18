@@ -5,25 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GoalLine CMS Admin</title>
   
-  <script src="https://unpkg.com/netlify-cms-app@^2.15.0/dist/netlify-cms-app.js"></script>
-  <script>
-    CMS.init({
-      config: {
-        backend: {
-          name: 'git-gateway',
-          branch: 'main'
-        }
-      }
-    });
-  </script>
 
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  
  
+  <script src="https://unpkg.com/netlify-cms@^2.10.0/dist/netlify-cms.js"></script>
+  
   <style>
     [data-testid="email-auth-container"] {
       display: none !important;
     }
   </style>
 </head>
+<body>
+  <div id="nc-root" style="min-height: 100vh;"></div>
+  
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof CMS !== 'undefined') {
+        CMS.init();
+      } else {
+        console.error('CMS not loaded - check script sources');
+      }
+    });
+  </script>
+</body>
+</html>
 <body>
   
   <div id="nc-root" style="min-height: 100vh;"></div>
