@@ -1,3 +1,6 @@
+/* ====================== 
+ BASE STYLES 
+====================== */
 body {
   background-color: #b7b9bc;
   margin: 0;
@@ -8,7 +11,7 @@ body {
   flex: 1;
 }
 main {
-  flex: 1; /* put all your main content inside a <main> tag */
+  flex: 1;
 }
 html, body {
   height: 100%;
@@ -18,6 +21,10 @@ html, body {
 html {
   scroll-behavior: smooth;
 }
+
+/* ====================== 
+ HEADER/NAVIGATION 
+====================== */
 .icons {
   display: flex;
   justify-content: space-between;
@@ -45,7 +52,6 @@ html {
   gap: 8px;
   position: relative;
   color: white;
-
 }
 
 .icons a::after {
@@ -63,7 +69,6 @@ html {
   width: 100%;
 }
 
-
 .header-center {
   text-align: center;
   flex: 1;
@@ -74,10 +79,9 @@ html {
   color: white;
 }
 .Title .ball {
-  font-size: 0.7em; /* or e.g., 20px */
+  font-size: 0.7em; 
   vertical-align: middle;
 }
-
 
 .tagline {
   color: #ddd;
@@ -85,7 +89,10 @@ html {
   margin:2px 0 0 0;
   font-style: italic;
 }
-/* Main Section */
+
+/* ====================== 
+ARTICLE GRID SECTION 
+ ====================== */
 .articles {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -106,7 +113,7 @@ html {
 .article img {
   width: 100%;
   height: auto;
-  max-height: 200px; /* limits tall images */
+  max-height: 200px; 
   object-fit: cover;
   border-radius: 4px;
   margin-bottom: 10px;
@@ -119,15 +126,8 @@ html {
   margin: 0 0 5px 0;
 }
 
-.article .date {
+.article .dateandauthor {
   font-size: 12px;
-  color: #555;
-  margin: 0;
-}
-
-.article .author {
-  font-size: 12px;
-  font-style: italic;
   color: #555;
   margin: 0 0 10px 0;
 }
@@ -151,18 +151,22 @@ html {
 .article button.read-more:hover {
   background: #3333aa;
 }
-/*About Us Section */
+
+/* ====================== 
+ABOUT US SECTION 
+====================== */
 #about{
  padding: 5px;
   color: black;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
-  
 }
 #aboutP{
   font-size: 15px;
 }
 
-/*Fixture Section */
+/* ======================
+FIXTURES SECTION 
+ ====================== */
 #fixtures {
 padding: 5px;
   color: black;
@@ -172,7 +176,9 @@ padding: 5px;
   font-size: 15px;
 }
 
-/*load more Button*/
+/* ====================== 
+LOAD MORE BUTTON 
+====================== */
 #loadMore {
   background-color: #0a0a71;
   color: #fff;
@@ -191,17 +197,18 @@ padding: 5px;
   transform: scale(1.05);
 }
 
-
-/*Footer Section*/
+/*====================== 
+ FOOTER SECTION 
+====================== */
 .footer {
-  padding: 7px 2px;           /* was 40px 20px */
+  padding: 7px 2px;           
   background-color: rgb(10, 10, 113);
   color: white;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;                    /* was 40px */
-  font-size: 12px;              /* slightly smaller text */
+  gap: 20px;                   
+  font-size: 12px;             
   position: relative;
   bottom: auto;
   width: 100%;
@@ -214,9 +221,6 @@ padding: 5px;
   font-size: 12px;
   color: #ccc;
 }
-
-
-
 
 .footer-section {
   flex: 1;
@@ -251,6 +255,9 @@ padding: 5px;
   transform: scale(1.2);
 }
 
+/* ====================== 
+ GALLERY SECTION 
+====================== */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -274,6 +281,10 @@ padding: 5px;
   transform: scale(1.05);
   box-shadow: 0 6px 10px rgba(0,0,0,0.2);
 }
+
+/* ====================== 
+ SHARE BUTTONS 
+====================== */
 .share-container {
   margin-top: 8px;
   margin-bottom: 10px;
@@ -300,11 +311,32 @@ padding: 5px;
   background-color: #3333aa;
 }
 
+/* ====================== 
+ EXPANDED ARTICLE VIEW
+ ====================== */
+.articles.expanded {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
+.articles.expanded .article {
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  padding: 20px;
+  transition: all 0.3s ease;
+}
 
-/* Mobile View */
+.article {
+  transition: all 0.3s ease;
+}
+
+/* ====================== 
+MOBILE RESPONSIVE STYLES 
+ ====================== */
 @media (max-width: 600px) {
-  
   /* Header adjustments */
   .icons {
     flex-direction: column;
@@ -345,24 +377,4 @@ padding: 5px;
     font-size: 11px;
   }
 }
-
-.articles.expanded {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.articles.expanded .article {
-  width: 90%;
-  max-width: 800px;
-  margin: 0 auto;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  padding: 20px;
-  transition: all 0.3s ease;
-}
-
-.article {
-  transition: all 0.3s ease;
-}
-
 
