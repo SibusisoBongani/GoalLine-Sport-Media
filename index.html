@@ -32,6 +32,32 @@
 <main>
 <section class="articles">
 
+
+    <!--Article 11-->
+  <div class="article" id="article11" data-date="2025-07-15">
+    <h2>Yusuf Maart Completes European Move from Kaizer Chiefs to SV Ried</h2>
+    <h6 class="dateandauthor">By Azola Ngxanga | 15 July 2025</span></h6>
+    <img src="images/Yusuf Maart.jpg" alt="Image of Yusuf Maart">
+    <div class="share-container">
+      <button class="share-btn" type="button">  
+        <i class="fas fa-share-alt"></i> Share
+      </button>
+    </div>
+    <p>
+      Yusuf Maart has officially completed a transfer from Kaizer Chiefs to Austrian Bundesliga club SV Ried, marking a significant step in the midfielder’s career as he moves abroad for the first time at the age of 29.
+      <span class="more-text" style="display:none;">
+        The deal was confirmed earlier this week after weeks of speculation, with the South African international set to join Ried ahead of the 2025–26 Austrian season.
+
+The move brings an end to Maart’s three-year spell at Kaizer Chiefs, where he served as club captain and became a fan favourite through his leadership and consistent performances in midfield. Chiefs reportedly exercised a one-year extension clause in his contract in June but ultimately agreed to release him for a transfer fee of approximately €1 million. While Transfermarkt also lists Maart’s market value at €1 million, multiple reports confirm that SV Ried reached an agreement to secure the player on a permanent deal.<br><br>
+Maart made 95 appearances in all competitions for Amakhosi, scoring seven goals and assisting eight. His most iconic moment came in May 2025 when he scored the winning goal in the Nedbank Cup final, ending the club’s ten-year trophy drought. His farewell message to the club and supporters was emotional, as he thanked teammates, coaches, and fans for standing by him through highs and lows. He described Kaizer Chiefs as a place that will “always be home.”<br><br>
+Now entering a new phase of his career, Maart arrives at SV Ried as the club prepares for its return to the Austrian top flight. In his unveiling, the midfielder said he was excited by the challenge of playing in Europe and grateful for the opportunity. He acknowledged the physical nature of Austrian football and committed to adapting quickly to make a strong impact. SV Ried’s management praised Maart’s technical ability, international experience, and leadership qualities.<br><br>
+Kaizer Chiefs, meanwhile, have already named Angolan international Miguel Inacio as the club’s new captain. The club is expected to reinforce its midfield during the transfer window as it prepares for both domestic competition and its upcoming CAF Confederation Cup campaign.<br><br>
+Yusuf Maart’s move is seen as an inspiring moment for South African football, showing that late-career moves to Europe remain achievable for local talent. His journey reflects both professional perseverance and the growing recognition of South African players on the international stage.<br> (Image By: SV Ried / Instagram)
+      </span>
+      <button class="read-more">Read more</button>
+    </p>
+  </div>
+
   <!--Article 10-->
   <div class="article" id="article10" data-date="2025-07-11">
     <h2>South Africa Target Second WAFCON Win in Key Clash Against Tanzania</h2>
@@ -343,19 +369,83 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  // Read more/less functionality
-  document.querySelectorAll('.read-more').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const moreText = this.previousElementSibling;
-      if (moreText.style.display === 'none') {
-        moreText.style.display = 'inline';
-        this.textContent = 'Read less';
-      } else {
-        moreText.style.display = 'none';
-        this.textContent = 'Read more';
-      }
+// Toggle expanded view
+document.querySelectorAll('.read-more').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const article = this.closest('.article');
+    const isExpanded = article.classList.contains('expanded');
+    const moreText = article.querySelector('.more-text');
+    const readLess = article.querySelector('.read-less');
+    const overlay = document.querySelector('.overlay') || createOverlay();
+
+    if (isExpanded) {
+      // Collapse the article
+      article.classList.remove('expanded');
+      overlay.style.display = 'none';
+      this.textContent = 'Read more';
+      readLess.style.display = 'none';
+      
+      // Show all articles again
+      document.querySelectorAll('.article').forEach(a => {
+        a.style.display = 'block';
+      });
+    } else {
+      // Expand the article
+      article.classList.add('expanded');
+      overlay.style.display = 'block';
+      this.textContent = 'Read less';
+      readLess.style.display = 'inline-block';
+      
+      // Hide other articles
+      document.querySelectorAll('.article').forEach(a => {
+        if (a !== article) {
+          a.style.display = 'none';
+        }
+      });
+    }
+  });
+});
+
+// Read less functionality
+document.querySelectorAll('.read-less').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const article = this.closest('.article');
+    article.classList.remove('expanded');
+    document.querySelector('.overlay').style.display = 'none';
+    article.querySelector('.read-more').textContent = 'Read more';
+    this.style.display = 'none';
+    
+    // Show all articles again
+    document.querySelectorAll('.article').forEach(a => {
+      a.style.display = 'block';
     });
   });
+});
+
+// Helper function to create overlay
+function createOverlay() {
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  document.body.appendChild(overlay);
+  
+  // Clicking overlay closes expanded article
+  overlay.addEventListener('click', function() {
+    const expandedArticle = document.querySelector('.article.expanded');
+    if (expandedArticle) {
+      expandedArticle.classList.remove('expanded');
+      overlay.style.display = 'none';
+      expandedArticle.querySelector('.read-more').textContent = 'Read more';
+      expandedArticle.querySelector('.read-less').style.display = 'none';
+      
+      // Show all articles again
+      document.querySelectorAll('.article').forEach(a => {
+        a.style.display = 'block';
+      });
+    }
+  });
+  
+  return overlay;
+}
   
   // Share functionality
   document.querySelectorAll('.share-btn').forEach(button => {
