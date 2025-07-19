@@ -314,25 +314,72 @@ LOAD MORE BUTTON
 /* ====================== 
  EXPANDED ARTICLE VIEW
  ====================== */
-.articles.expanded {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
 
-.articles.expanded .article {
-  width: 90%;
+/* Update the expanded article styles */
+.article.expanded {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
   max-width: 800px;
-  margin: 0 auto;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  padding: 20px;
-  transition: all 0.3s ease;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 30px;
+  box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+  background: white;
+  border-radius: 8px;
 }
 
-.article {
-  transition: all 0.3s ease;
+.article.expanded img {
+  max-height: 300px;
 }
 
+.article.expanded h2 {
+  font-size: 24px;
+}
+
+.article.expanded .more-text {
+  display: block !important;
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Add overlay when article is expanded */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 999;
+  display: none;
+}
+
+/* Hide other articles when one is expanded */
+.articles:has(.expanded) .article:not(.expanded) {
+  display: none;
+}
+
+/* Style for read less button */
+.read-less {
+  display: none;
+  background: #0a0a71;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.read-less:hover {
+  background: #3333aa;
+}
 /* ====================== 
 MOBILE RESPONSIVE STYLES 
  ====================== */
