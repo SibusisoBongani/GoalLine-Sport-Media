@@ -1,9 +1,1923 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>TEST</title>
+  <meta charset="UTF-8">
+  <title>PSL Fixtures 2025/2026 | GoalLine Sport Media</title>
+  <meta name="description" content="Complete fixtures for the 2025/2026 Premier Soccer League season">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-  <h1>If you see this, deployment works!</h1>
+
+<header class="icons">
+  <div class="icons-left">
+    <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="#contact"><i class="fas fa-envelope"></i><span>Contact</span></a>
+  </div>
+
+  <div class="header-center">
+    <div class="Title">
+      G<span class="ball">⚽</span>alLine Sport Media
+    </div>
+    <p class="tagline">Feel the rush. Live the line.</p>
+  </div>
+
+  <div class="icons-right">
+    <a href="index.html#about"><span>About Us</span></a>
+    <a href="gallery.html" target="_blank"><span>Gallery</span></a>
+    <a href="fixtures.html"><span>Fixtures</span></a>
+  </div>
+</header>
+
+<main>
+  <section class="fixtures-container">
+    <h1>2025/2026 Premier Soccer League Fixtures</h1>
+    
+    <div class="fixtures-controls">
+      <div class="round-selector">
+        <label for="round">Round:</label>
+        <select id="round">
+          <option value="all">All Rounds</option>
+          <option value="1">Round 1</option>
+          <option value="2">Round 2</option>
+          <option value="3">Round 3</option>
+          <option value="4">Round 4</option>
+          <option value="5">Round 5</option>
+          <option value="6">Round 6</option>
+          <option value="7">Round 7</option>
+          <option value="8">Round 8</option>
+          <option value="9">Round 9</option>
+          <option value="10">Round 10</option>
+          <option value="11">Round 11</option>
+          <option value="12">Round 12</option>
+          <option value="13">Round 13</option>
+          <option value="14">Round 14</option>
+          <option value="15">Round 15</option>
+          <option value="16">Round 16</option>
+          <option value="17">Round 17</option>
+          <option value="18">Round 18</option>
+          <option value="19">Round 19</option>
+          <option value="20">Round 20</option>
+          <option value="21">Round 21</option>
+          <option value="22">Round 22</option>
+          <option value="23">Round 23</option>
+          <option value="24">Round 24</option>
+          <option value="25">Round 25</option>
+          <option value="26">Round 26</option>
+          <option value="27">Round 27</option>
+          <option value="28">Round 28</option>
+          <option value="29">Round 29</option>
+          <option value="30">Round 30</option>
+        </select>
+      </div>
+    </div>
+    
+    <div id="fixturesList">
+      <!-- Fixtures will be loaded here -->
+    </div>
+  </section>
+</main>
+
+<footer class="footer" id="contact">
+  <div class="footer-section left">
+    <h4>Follow Us</h4>
+    <div class="footer-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+
+  <div class="footer-section center">
+    <h4>Call Us</h4>
+    <div class="footer-icons">
+      <i class="fas fa-phone"></i> 0781310812
+    </div>
+  </div>
+
+  <div class="footer-section right">
+    <h4>Email Us</h4>
+    <div class="footer-icons">
+      <i class="fas fa-envelope"></i> goallinesportsmedia@gmail.com
+    </div>
+  </div>
+
+  <div class="copyright">
+    &copy; 2025 All rights reserved | GoalLine Sports Media
+  </div>
+</footer>
+
+<script>
+// Configuration for 2025/2026 season
+const CURRENT_SEASON = '2025/2026';
+const SEASON_START_DATE = new Date('2025-08-08');
+
+// PSL fixtures for 2025/2026 season (Rounds 1-30)
+const PSL_FIXTURES = [
+  // Round 1
+  {
+    date: '2025-08-08T15:00:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Orbit College',
+    venue: 'Moses Mabhida Stadium',
+    round: 1
+  },
+  {
+    date: '2025-08-09T15:00:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'Nelson Mandela Bay Stadium',
+    round: 1
+  },
+  {
+    date: '2025-08-09T15:00:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'Magesi FC',
+    venue: 'Peter Mokaba Stadium',
+    round: 1
+  },
+  {
+    date: '2025-08-09T15:00:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Marumo Gallants',
+    venue: 'King Zwelithini Stadium',
+    round: 1
+  },
+  {
+    date: '2025-08-09T17:30:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Orlando Stadium',
+    round: 1
+  },
+  {
+    date: '2025-08-09T20:00:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Golden Arrows',
+    venue: 'Dr. Petrus Molemela Stadium',
+    round: 1
+  },
+  {
+    date: '2025-08-10T17:30:00',
+    homeTeam: 'Stellenbosch  FC',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Danie Craven Stadium',
+    round: 1
+  },
+  {
+    date: '2025-08-10T18:00:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Durban City',
+    venue: 'Mbombela Stadium',
+    round: 1
+  },
+  
+  // Round 2
+  {
+    date: '2025-08-12T19:30:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'AmaZulu',
+    venue: 'Loftus Versfeld Stadium',
+    round: 2
+  },
+  {
+    date: '2025-08-12T19:30:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Peter Mokaba Stadium',
+    round: 2
+  },
+  {
+    date: '2025-08-12T19:30:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Siwelele FC',
+    venue: 'Orlando Stadium',
+    round: 2
+  },
+  {
+    date: '2025-08-13T19:30:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'Chippa United',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 2
+  },
+  {
+    date: '2025-08-13T19:30:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'Polokwane City',
+    venue: 'FNB Stadium',
+    round: 2
+  },
+  {
+    date: '2025-08-13T19:30:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Richards Bay',
+    venue: 'Princess Magogo Stadium',
+    round: 2
+  },
+  {
+    date: '2025-08-13T19:30:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Stellenbosch  FC',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 2
+  },
+  {
+    date: '2025-08-13T19:30:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'TS Galaxy',
+    venue: 'Peter Mokaba Stadium',
+    round: 2
+  },
+  
+  
+  // Round 3
+  {
+    date: '2025-08-19T19:30:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'TS Galaxy',
+    venue: 'Nelson Mandela Bay Stadium',
+    round: 3
+  },
+  {
+    date: '2025-08-19T19:30:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'Golden Arrows',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 3
+  },
+  {
+    date: '2025-08-19T19:30:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'Richards Bay',
+    venue: 'FNB Stadium',
+    round: 3
+  },
+  {
+    date: '2025-08-19T19:30:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Orlando Stadium',
+    round: 3
+  },
+  {
+    date: '2025-08-19T19:30:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Polokwane City',
+    venue: 'Dr. Petrus Molemela Stadium',
+    round: 3
+  },
+  {
+    date: '2025-08-20T19:30:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Moses Mabhida Stadium',
+    round: 3
+  },
+  {
+    date: '2025-08-20T19:30:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 3
+  },
+  {
+    date: '2025-08-20T19:30:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'Stellenbosch  FC',
+    venue: 'Orlando Stadium',
+    round: 3
+  },
+  
+  // Round 4
+  {
+    date: '2025-08-25T18:30:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'Orbit College',
+    venue: 'Orlando Stadium',
+    round: 4
+  },
+  {
+    date: '2025-08-25T18:30:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'Durban City',
+    venue: 'Peter Mokaba Stadium',
+    round: 4
+  },
+  {
+    date: '2025-08-25T18:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Chippa United',
+    venue: 'King Zwelithini Stadium',
+    round: 4
+  },
+  {
+    date: '2025-08-25T18:30:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Danie Craven Stadium',
+    round: 4
+  },
+  {
+    date: '2025-08-25T18:30:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Golden Arrows',
+    venue: 'Dr. Petrus Molemela Stadium',
+    round: 4
+  },
+  {
+    date: '2025-08-25T18:30:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Loftus Versfeld Stadium',
+    round: 4
+  },
+  {
+    date: '2025-08-25T18:30:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'AmaZulu',
+    venue: 'Peter Mokaba Stadium',
+    round: 4
+  },
+  {
+    date: '2025-08-25T18:30:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Magesi FC',
+    venue: 'Mbombela Stadium',
+    round: 4
+  },
+  
+  // Round 5
+  {
+    date: '2025-08-30T15:00:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Richards Bay',
+    venue: 'Dr. Petrus Molemela Stadium',
+    round: 5
+  },
+  {
+    date: '2025-08-30T15:00:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'AmaZulu',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 5
+  },
+  {
+    date: '2025-08-30T15:00:00',
+    homeTeam: 'Stellenbosch FC FC',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'Danie Craven Stadium',
+    round: 5
+  },
+  {
+    date: '2025-08-30T15:00:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Princess Magogo Stadium',
+    round: 5
+  },
+  {
+    date: '2025-08-30T15:00:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Durban City',
+    venue: 'Peter Mokaba Stadium',
+    round: 5
+  },
+  {
+    date: '2025-08-30T15:00:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'TS Galaxy',
+    venue: 'Orlando Stadium',
+    round: 5
+  },
+  {
+    date: '2025-08-30T15:00:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Nelson Mandela Bay Stadium',
+    round: 5
+  },
+  {
+    date: '2025-08-30T15:00:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Polokwane City',
+    venue: 'Peter Mokaba Stadium',
+    round: 5
+  },
+
+  // Round 6
+  {
+    date: '2025-10-05T15:00:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'Princess Magogo Stadium',
+    round: 6
+  },
+  {
+    date: '2025-10-05T17:30:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Peter Mokaba Stadium',
+    round: 6
+  },
+  {
+    date: '2025-10-05T18:30:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Polokwane City',
+    venue: 'Orlando Stadium',
+    round: 6
+  },
+  {
+    date: '2025-10-05T19:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Sekhukhune United',
+    venue: 'King Zwelithini Stadium',
+    round: 6
+  },
+  {
+    date: '2025-10-05T19:30:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'TS Galaxy',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 6
+  },
+  {
+    date: '2025-10-05T20:30:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Chippa United',
+    venue: 'Peter Mokaba Stadium',
+    round: 6
+  },
+  {
+    date: '2025-10-05T21:30:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'Dr. Petrus Molemela Stadium',
+    round: 6
+  },
+  {
+    date: '2025-10-05T22:30:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'AmaZulu',
+    venue: 'Orlando Stadium',
+    round: 6
+  },
+
+  // Round 7
+  {
+    date: '2025-09-20T15:00:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Moses Mabhida Stadium',
+    round: 7
+  },
+  {
+    date: '2025-09-20T15:00:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Siwelele FC',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 7
+  },
+  {
+    date: '2025-09-20T15:00:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Golden Arrows',
+    venue: 'Peter Mokaba Stadium',
+    round: 7
+  },
+  {
+    date: '2025-09-20T17:30:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Durban City',
+    venue: 'Loftus Versfeld Stadium',
+    round: 7
+  },
+  {
+    date: '2025-09-20T20:00:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Orlando Stadium',
+    round: 7
+  },
+  {
+    date: '2025-09-20T20:00:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'Richards Bay',
+    venue: 'Danie Craven Stadium',
+    round: 7
+  },
+  {
+    date: '2025-09-21T15:00:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'Chippa United',
+    venue: 'Peter Mokaba Stadium',
+    round: 7
+  },
+  {
+    date: '2025-09-21T15:00:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Mbombela Stadium',
+    round: 7
+  },
+
+  // Round 8
+  {
+    date: '2025-09-24T15:00:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'Princess Magogo Stadium',
+    round: 8
+  },
+  {
+    date: '2025-09-24T17:30:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Peter Mokaba Stadium',
+    round: 8
+  },
+  {
+    date: '2025-09-24T19:30:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Polokwane City',
+    venue: 'Orlando Stadium',
+    round: 8
+  },
+  {
+    date: '2025-09-24T19:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Magesi FC',
+    venue: 'King Zwelithini Stadium',
+    round: 8
+  },
+  {
+    date: '2025-09-24T19:30:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Chippa United',
+    venue: 'Peter Mokaba Stadium',
+    round: 8
+  },
+  {
+    date: '2025-09-24T19:30:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Dr. Petrus Molemela Stadium',
+    round: 8
+  },
+  {
+    date: '2025-09-24T19:30:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'Durban City',
+    venue: 'Danie Craven Stadium',
+    round: 8
+  },
+  {
+    date: '2025-09-24T19:30:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'AmaZulu',
+    venue: 'Mbombela Stadium',
+    round: 8
+  },
+
+  // Round 9
+  {
+    date: '2025-09-27T15:00:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Orbit College',
+    venue: 'Princess Magogo Stadium',
+    round: 9
+  },
+  {
+    date: '2025-09-27T15:00:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Peter Mokaba Stadium',
+    round: 9
+  },
+  {
+    date: '2025-09-27T17:30:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'AmaZulu',
+    venue: 'FNB Stadium',
+    round: 9
+  },
+  {
+    date: '2025-09-27T17:30:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Richards Bay',
+    venue: 'Loftus Versfeld Stadium',
+    round: 9
+  },
+  {
+    date: '2025-09-27T20:00:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'Magesi FC',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 9
+  },
+  {
+    date: '2025-09-28T15:00:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'TS Galaxy',
+    venue: 'Orlando Stadium',
+    round: 9
+  },
+  {
+    date: '2025-09-28T15:00:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Dr. Petrus Molemela Stadium',
+    round: 9
+  },
+  {
+    date: '2025-09-28T17:30:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'Nelson Mandela Bay Stadium',
+    round: 9
+  },
+
+  // Round 10
+  {
+    date: '2025-12-17T19:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Orbit College',
+    venue: 'King Zwelithini Stadium',
+    round: 10
+  },
+  {
+    date: '2025-12-18T15:30:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Durban City',
+    venue: 'Moses Mabhida Stadium',
+    round: 10
+  },
+  {
+    date: '2025-12-18T15:30:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'Polokwane City',
+    venue: 'Orlando Stadium',
+    round: 10
+  },
+  {
+    date: '2025-12-18T17:20:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'TS Galaxy',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 10
+  },
+  {
+    date: '2025-12-18T17:20:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'Peter Mokaba Stadium',
+    round: 10
+  },
+  {
+    date: '2025-12-18T20:00:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'Golden Arrows',
+    venue: 'Danie Craven Stadium',
+    round: 10
+  },
+  {
+    date: '2025-12-18T15:30:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Chippa United',
+    venue: 'Peter Mokaba Stadium',
+    round: 10
+  },
+  {
+    date: '2025-12-19T17:20:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'Siwelele FC',
+    venue: 'FNB Stadium',
+    round: 10
+  },
+
+  // Round 11
+  {
+    date: '2025-10-31T19:30:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 11
+  },
+  {
+    date: '2025-10-31T19:30:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Dr. Petrus Molemela Stadium',
+    round: 11
+  },
+  {
+    date: '2025-11-01T15:30:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Loftus Versfeld Stadium',
+    round: 11
+  },
+  {
+    date: '2025-11-01T15:30:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Magesi FC',
+    venue: 'Orlando Stadium',
+    round: 11
+  },
+  {
+    date: '2025-11-01T17:30:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'Richards Bay',
+    venue: 'Peter Mokaba Stadium',
+    round: 11
+  },
+  {
+    date: '2025-11-01T20:00:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'AmaZulu',
+    venue: 'Nelson Mandela Bay Stadium',
+    round: 11
+  },
+  {
+    date: '2025-11-02T15:30:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'Mbombela Stadium',
+    round: 11
+  },
+  {
+    date: '2025-11-02T17:30:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Princess Magogo Stadium',
+    round: 11
+  },
+
+  // Round 12
+  {
+    date: '2025-11-04T18:30:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Polokwane City',
+    venue: 'Moses Mabhida Stadium',
+    round: 12
+  },
+  {
+    date: '2025-11-04T18:30:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'Magesi FC',
+    venue: 'Nelson Mandela Bay Stadium',
+    round: 12
+  },
+  {
+    date: '2025-11-04T18:30:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'Orbit College',
+    venue: 'FNB Stadium',
+    round: 12
+  },
+  {
+    date: '2025-11-04T18:30:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Richards Bay',
+    venue: 'Peter Mokaba Stadium',
+    round: 12
+  },
+  {
+    date: '2025-11-05T18:30:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 12
+  },
+  {
+    date: '2025-11-05T18:30:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Princess Magogo Stadium',
+    round: 12
+  },
+  {
+    date: '2025-11-05T18:30:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'TS Galaxy',
+    venue: 'Loftus Versfeld Stadium',
+    round: 12
+  },
+  {
+    date: '2025-11-05T18:30:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'Siwelele FC',
+    venue: 'Danie Craven Stadium',
+    round: 12
+  },
+
+// Round 13
+  {
+    date: '2025-11-22T15:30:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Siwelele FC',
+    venue: 'Moses Mabhida Stadium',
+    round: 13
+  },
+  {
+    date: '2025-11-22T15:30:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'Chippa United',
+    venue: 'Orlando Stadium',
+    round: 13
+  },
+  {
+    date: '2025-11-22T17:30:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 13
+  },
+  {
+    date: '2025-11-22T17:30:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Peter Mokaba Stadium',
+    round: 13
+  },
+  {
+    date: '2025-11-22T20:00:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'Orlando Stadium',
+    round: 13
+  },
+  {
+    date: '2025-11-23T15:30:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'Peter Mokaba Stadium',
+    round: 13
+  },
+  {
+    date: '2025-11-23T15:30:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Golden Arrows',
+    venue: 'Mbombela Stadium',
+    round: 13
+  },
+  {
+    date: '2025-11-23T17:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Durban City',
+    venue: 'King Zwelithini Stadium',
+    round: 13
+  },
+
+  // Round 14
+  {
+    date: '2025-11-28T19:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'AmaZulu',
+    venue: 'King Zwelithini Stadium',
+    round: 14
+  },
+  {
+    date: '2025-11-29T15:30:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 14
+  },
+  {
+    date: '2025-11-29T15:30:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'TS Galaxy',
+    venue: 'Peter Mokaba Stadium',
+    round: 14
+  },
+  {
+    date: '2025-11-29T17:30:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Chippa United',
+    venue: 'Dr. Petrus Molemela Stadium',
+    round: 14
+  },
+  {
+    date: '2025-11-29T20:00:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Orbit College',
+    venue: 'Loftus Versfeld Stadium',
+    round: 14
+  },
+  {
+    date: '2025-11-30T15:30:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Magesi FC',
+    venue: 'Peter Mokaba Stadium',
+    round: 14
+  },
+  {
+    date: '2025-11-30T15:30:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'Peter Mokaba Stadium',
+    round: 14
+  },
+  {
+    date: '2025-11-30T17:30:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'Golden Arrows',
+    venue: 'FNB Stadium',
+    round: 14
+  },
+
+  // Round 15
+  {
+    date: '2025-12-02T18:30:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'Richards Bay',
+    venue: 'Orlando Stadium',
+    round: 15
+  },
+  {
+    date: '2025-12-02T18:30:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'Dr. Petrus Molemela Stadium',
+    round: 15
+  },
+  {
+    date: '2025-12-03T18:30:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Nelson Mandela Bay Stadium',
+    round: 15
+  },
+  {
+    date: '2025-12-03T18:30:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'AmaZulu',
+    venue: 'Princess Magogo Stadium',
+    round: 15
+  },
+  {
+    date: '2025-12-03T18:30:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 15
+  },
+  {
+    date: '2025-12-03T18:30:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Durban City',
+    venue: 'Orlando Stadium',
+    round: 15
+  },
+  {
+    date: '2025-12-03T18:30:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'Polokwane City',
+    venue: 'Danie Craven Stadium',
+    round: 15
+  },
+  {
+    date: '2025-12-03T18:30:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Mbombela Stadium',
+    round: 15
+  },
+
+  // Round 16
+  {
+    date: '2026-01-23T19:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Siwelele FC',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 16
+  },
+  {
+    date: '2026-01-24T15:30:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Chippa United',
+    venue: 'ORBIT College Stadium',
+    round: 16
+  },
+  {
+    date: '2026-01-24T15:30:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Thohoyandou Stadium',
+    round: 16
+  },
+  {
+    date: '2026-01-24T17:30:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'Marumo Gallants',
+    venue: 'FNB Stadium',
+    round: 16
+  },
+  {
+    date: '2026-01-24T17:30:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'Princess Magogo Stadium',
+    round: 16
+  },
+  {
+    date: '2026-01-24T20:00:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Magesi FC',
+    venue: 'Loftus Versfeld Stadium',
+    round: 16
+  },
+  {
+    date: '2026-01-25T15:30:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'TS Galaxy',
+    venue: 'King Zwelithini Stadium',
+    round: 16
+  },
+  {
+    date: '2026-01-25T17:30:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'Polokwane City',
+    venue: 'Durban City Stadium',
+    round: 16
+  },
+
+  // Round 17
+  {
+    date: '2026-01-30T19:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Golden Arrows',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 17
+  },
+  {
+    date: '2026-01-30T19:30:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'Magesi FC',
+    venue: 'Danie Craven Stadium',
+    round: 17
+  },
+  {
+    date: '2026-01-31T15:30:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'AmaZulu',
+    venue: 'Peter Mokaba Stadium',
+    round: 17
+  },
+  {
+    date: '2026-01-31T15:30:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'Orlando Stadium',
+    round: 17
+  },
+  {
+    date: '2026-01-31T17:30:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'Orbit College',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 17
+  },
+  {
+    date: '2026-01-31T20:00:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'Durban City',
+    venue: 'Sivutsa Stadium',
+    round: 17
+  },
+  {
+    date: '2026-02-01T15:30:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Kemi Seba Stadium',
+    round: 17
+  },
+  {
+    date: '2026-02-01T17:30:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Siwelele Stadium',
+    round: 17
+  },
+
+  // Round 18
+  {
+    date: '2026-02-13T19:30:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'TS Galaxy',
+    venue: 'Durban City Stadium',
+    round: 18
+  },
+  {
+    date: '2026-02-13T19:30:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Golden Arrows',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 18
+  },
+  {
+    date: '2026-02-14T15:30:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'King Zwelithini Stadium',
+    round: 18
+  },
+  {
+    date: '2026-02-14T15:30:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'Siwelele FC',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 18
+  },
+  {
+    date: '2026-02-14T17:30:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'FNB Stadium',
+    round: 18
+  },
+  {
+    date: '2026-02-14T20:00:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'Richards Bay',
+    venue: 'Sivutsa Stadium',
+    round: 18
+  },
+  {
+    date: '2026-02-15T15:30:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Orlando Stadium',
+    round: 18
+  },
+  {
+    date: '2026-02-15T17:30:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Orbit College',
+    venue: 'Thohoyandou Stadium',
+    round: 18
+  },
+
+  // Round 19
+  {
+    date: '2026-02-27T19:30:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Polokwane City',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 19
+  },
+  {
+    date: '2026-02-27T19:30:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'AmaZulu',
+    venue: 'Danie Craven Stadium',
+    round: 19
+  },
+  {
+    date: '2026-02-28T15:30:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'Orlando Pirates',
+    venue: 'FNB Stadium',
+    round: 19
+  },
+  {
+    date: '2026-02-28T17:30:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Chippa United',
+    venue: 'Princess Magogo Stadium',
+    round: 19
+  },
+  {
+    date: '2026-02-28T17:30:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'TS Galaxy',
+    venue: 'Siwelele Stadium',
+    round: 19
+  },
+  {
+    date: '2026-02-28T20:00:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Richards Bay',
+    venue: 'ORBIT College Stadium',
+    round: 19
+  },
+  {
+    date: '2026-03-01T15:30:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Loftus Versfeld Stadium',
+    round: 19
+  },
+  {
+    date: '2026-03-01T15:30:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Durban City',
+    venue: 'Peter Mokaba Stadium',
+    round: 19
+  },
+
+  // Round 20
+  {
+    date: '2026-03-03T19:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 20
+  },
+  {
+    date: '2026-03-03T19:30:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'Siwelele Stadium',
+    round: 20
+  },
+  {
+    date: '2026-03-03T19:30:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Orbit College',
+    venue: 'Kemi Seba Stadium',
+    round: 20
+  },
+  {
+    date: '2026-03-04T19:30:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Magesi FC',
+    venue: 'King Zwelithini Stadium',
+    round: 20
+  },
+  {
+    date: '2026-03-04T19:30:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Sivutsa Stadium',
+    round: 20
+  },
+  {
+    date: '2026-03-04T19:30:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Durban City Stadium',
+    round: 20
+  },
+  {
+    date: '2026-03-04T19:30:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Golden Arrows',
+    venue: 'Loftus Versfeld Stadium',
+    round: 20
+  },
+  {
+    date: '2026-03-04T19:30:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 20
+  },
+
+  // Round 21
+  {
+    date: '2026-03-13T19:30:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Chippa United',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 21
+  },
+  {
+    date: '2026-03-13T19:30:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'TS Galaxy',
+    venue: 'Danie Craven Stadium',
+    round: 21
+  },
+  {
+    date: '2026-03-14T15:30:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Richards Bay',
+    venue: 'King Zwelithini Stadium',
+    round: 21
+  },
+  {
+    date: '2026-03-14T15:30:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'Siwelele FC',
+    venue: 'Orlando Stadium',
+    round: 21
+  },
+  {
+    date: '2026-03-14T17:30:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Polokwane City',
+    venue: 'Thohoyandou Stadium',
+    round: 21
+  },
+  {
+    date: '2026-03-14T20:00:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'ORBIT College Stadium',
+    round: 21
+  },
+  {
+    date: '2026-03-15T15:30:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'Durban City',
+    venue: 'FNB Stadium',
+    round: 21
+  },
+  {
+    date: '2026-03-15T17:30:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Golden Arrows',
+    venue: 'Peter Mokaba Stadium',
+    round: 21
+  },
+
+  // Round 22
+  {
+    date: '2026-03-20T19:30:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Orbit College',
+    venue: 'Siwelele Stadium',
+    round: 22
+  },
+  {
+    date: '2026-03-21T15:30:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'AmaZulu',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 22
+  },
+  {
+    date: '2026-03-21T15:30:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'Chippa United',
+    venue: 'Danie Craven Stadium',
+    round: 22
+  },
+  {
+    date: '2026-03-21T17:30:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'Magesi FC',
+    venue: 'FNB Stadium',
+    round: 22
+  },
+  {
+    date: '2026-03-21T17:30:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Princess Magogo Stadium',
+    round: 22
+  },
+  {
+    date: '2026-03-21T20:00:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Loftus Versfeld Stadium',
+    round: 22
+  },
+  {
+    date: '2026-03-22T15:30:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Kemi Seba Stadium',
+    round: 22
+  },
+  {
+    date: '2026-03-22T17:30:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'Richards Bay',
+    venue: 'Durban City Stadium',
+    round: 22
+  },
+
+  // Round 23
+  {
+    date: '2026-04-06T19:30:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Sekhukhune United',
+    venue: 'King Zwelithini Stadium',
+    round: 23
+  },
+  {
+    date: '2026-04-07T19:30:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'Siwelele FC',
+    venue: 'Sivutsa Stadium',
+    round: 23
+  },
+  {
+    date: '2026-04-07T19:30:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'Durban City Stadium',
+    round: 23
+  },
+  {
+    date: '2026-04-07T19:30:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 23
+  },
+  {
+    date: '2026-04-07T19:30:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'ORBIT College Stadium',
+    round: 23
+  },
+  {
+    date: '2026-04-07T19:30:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'Golden Arrows',
+    venue: 'Orlando Stadium',
+    round: 23
+  },
+  {
+    date: '2026-04-07T19:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 23
+  },
+  {
+    date: '2026-04-07T19:30:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Polokwane City',
+    venue: 'Kemi Seba Stadium',
+    round: 23
+  },
+
+  // Round 24
+  {
+    date: '2026-04-10T19:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 24
+  },
+  {
+    date: '2026-04-11T15:00:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Durban City',
+    venue: 'Princess Magogo Stadium',
+    round: 24
+  },
+  {
+    date: '2026-04-11T15:00:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'AmaZulu',
+    venue: 'Siwelele Stadium',
+    round: 24
+  },
+  {
+    date: '2026-04-11T17:30:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'Loftus Versfeld Stadium',
+    round: 24
+  },
+  {
+    date: '2026-04-11T17:30:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Magesi FC',
+    venue: 'Thohoyandou Stadium',
+    round: 24
+  },
+  {
+    date: '2026-04-11T20:00:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'Polokwane City',
+    venue: 'Sivutsa Stadium',
+    round: 24
+  },
+  {
+    date: '2026-04-12T15:00:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'TS Galaxy',
+    venue: 'FNB Stadium',
+    round: 24
+  },
+  {
+    date: '2026-04-12T17:30:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Orbit College',
+    venue: 'Peter Mokaba Stadium',
+    round: 24
+  },
+
+  // Round 25
+  {
+    date: '2026-04-17T19:30:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Danie Craven Stadium',
+    round: 25
+  },
+  {
+    date: '2026-04-18T15:00:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Siwelele FC',
+    venue: 'Peter Mokaba Stadium',
+    round: 25
+  },
+  {
+    date: '2026-04-18T15:00:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Golden Arrows',
+    venue: 'ORBIT College Stadium',
+    round: 25
+  },
+  {
+    date: '2026-04-18T15:00:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'AmaZulu',
+    venue: 'Orlando Stadium',
+    round: 25
+  },
+  {
+    date: '2026-04-18T17:30:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Chippa United',
+    venue: 'Loftus Versfeld Stadium',
+    round: 25
+  },
+  {
+    date: '2026-04-18T20:00:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 25
+  },
+  {
+    date: '2026-04-19T15:00:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Richards Bay',
+    venue: 'Kemi Seba Stadium',
+    round: 25
+  },
+  {
+    date: '2026-04-19T17:30:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Durban City',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 25
+  },
+
+  // Round 26
+  {
+    date: '2026-04-24T19:30:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'Orbit College',
+    venue: 'Durban City Stadium',
+    round: 26
+  },
+  {
+    date: '2026-04-24T19:30:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Siwelele FC',
+    venue: 'Princess Magogo Stadium',
+    round: 26
+  },
+  {
+    date: '2026-04-25T15:00:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Orlando Stadium',
+    round: 26
+  },
+  {
+    date: '2026-04-25T17:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 26
+  },
+  {
+    date: '2026-04-25T17:30:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Thohoyandou Stadium',
+    round: 26
+  },
+  {
+    date: '2026-04-25T20:00:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Chippa United',
+    venue: 'King Zwelithini Stadium',
+    round: 26
+  },
+  {
+    date: '2026-04-26T15:00:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 26
+  },
+  {
+    date: '2026-04-26T15:00:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Magesi FC',
+    venue: 'Kemi Seba Stadium',
+    round: 26
+  },
+
+  // Round 27
+  {
+    date: '2026-05-05T19:30:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Sivutsa Stadium',
+    round: 27
+  },
+  {
+    date: '2026-05-05T19:30:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Orbit College',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 27
+  },
+  {
+    date: '2026-05-05T19:30:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Durban City',
+    venue: 'Siwelele Stadium',
+    round: 27
+  },
+  {
+    date: '2026-05-05T19:30:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Danie Craven Stadium',
+    round: 27
+  },
+  {
+    date: '2026-05-06T19:30:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Golden Arrows',
+    venue: 'King Zwelithini Stadium',
+    round: 27
+  },
+  {
+    date: '2026-05-06T19:30:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'FNB Stadium',
+    round: 27
+  },
+  {
+    date: '2026-05-06T19:30:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'TS Galaxy',
+    venue: 'Peter Mokaba Stadium',
+    round: 27
+  },
+  {
+    date: '2026-05-06T19:30:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Polokwane City',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 27
+  },
+
+  // Round 28
+  {
+    date: '2026-05-08T19:30:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'Durban City Stadium',
+    round: 28
+  },
+  {
+    date: '2026-05-09T15:00:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Richards Bay',
+    venue: 'Peter Mokaba Stadium',
+    round: 28
+  },
+  {
+    date: '2026-05-09T15:00:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'AmaZulu',
+    venue: 'ORBIT College Stadium',
+    round: 28
+  },
+  {
+    date: '2026-05-09T17:30:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'Polokwane City',
+    venue: 'Princess Magogo Stadium',
+    round: 28
+  },
+  {
+    date: '2026-05-09T17:30:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Siwelele FC',
+    venue: 'Loftus Versfeld Stadium',
+    round: 28
+  },
+  {
+    date: '2026-05-09T20:00:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Orlando Pirates',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 28
+  },
+  {
+    date: '2026-05-10T15:00:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Chippa United',
+    venue: 'Kemi Seba Stadium',
+    round: 28
+  },
+  {
+    date: '2026-05-10T17:30:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'Thohoyandou Stadium',
+    round: 28
+  },
+
+  // Round 29
+  {
+    date: '2026-05-16T15:00:00',
+    homeTeam: 'AmaZulu',
+    awayTeam: 'Kaizer Chiefs',
+    venue: 'King Zwelithini Stadium',
+    round: 29
+  },
+  {
+    date: '2026-05-16T15:00:00',
+    homeTeam: 'Chippa United',
+    awayTeam: 'Golden Arrows',
+    venue: 'Sivutsa Stadium',
+    round: 29
+  },
+  {
+    date: '2026-05-16T15:00:00',
+    homeTeam: 'Orlando Pirates',
+    awayTeam: 'Durban City',
+    venue: 'Orlando Stadium',
+    round: 29
+  },
+  {
+    date: '2026-05-16T15:00:00',
+    homeTeam: 'Richards Bay',
+    awayTeam: 'Sekhukhune United',
+    venue: 'Sugar Ray Xulu Stadium',
+    round: 29
+  },
+  {
+    date: '2026-05-16T15:00:00',
+    homeTeam: 'Siwelele FC',
+    awayTeam: 'Magesi FC',
+    venue: 'Siwelele Stadium',
+    round: 29
+  },
+  {
+    date: '2026-05-16T15:00:00',
+    homeTeam: 'Stellenbosch FC',
+    awayTeam: 'Orbit College',
+    venue: 'Danie Craven Stadium',
+    round: 29
+  },
+  {
+    date: '2026-05-16T15:00:00',
+    homeTeam: 'TS Galaxy',
+    awayTeam: 'Mamelodi Sundowns',
+    venue: 'Kemi Seba Stadium',
+    round: 29
+  },
+  {
+    date: '2026-05-16T15:30:00',
+    homeTeam: 'Polokwane City',
+    awayTeam: 'Marumo Gallants',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 29
+  },
+
+  // Round 30
+  {
+    date: '2026-05-23T15:00:00',
+    homeTeam: 'Durban City',
+    awayTeam: 'AmaZulu',
+    venue: 'Durban City Stadium',
+    round: 30
+  },
+  {
+    date: '2026-05-23T15:00:00',
+    homeTeam: 'Kaizer Chiefs',
+    awayTeam: 'Chippa United',
+    venue: 'FNB Stadium',
+    round: 30
+  },
+  {
+    date: '2026-05-23T15:00:00',
+    homeTeam: 'Golden Arrows',
+    awayTeam: 'TS Galaxy',
+    venue: 'Princess Magogo Stadium',
+    round: 30
+  },
+  {
+    date: '2026-05-23T15:00:00',
+    homeTeam: 'Magesi FC',
+    awayTeam: 'Richards Bay',
+    venue: 'Old Peter Mokaba Stadium',
+    round: 30
+  },
+  {
+    date: '2026-05-23T15:00:00',
+    homeTeam: 'Mamelodi Sundowns',
+    awayTeam: 'Polokwane City',
+    venue: 'Loftus Versfeld Stadium',
+    round: 30
+  },
+  {
+    date: '2026-05-23T15:00:00',
+    homeTeam: 'Marumo Gallants',
+    awayTeam: 'Stellenbosch FC',
+    venue: 'Peter Mokaba Stadium',
+    round: 30
+  },
+  {
+    date: '2026-05-23T15:00:00',
+    homeTeam: 'Orbit College',
+    awayTeam: 'Orlando Pirates',
+    venue: 'ORBIT College Stadium',
+    round: 30
+  },
+  {
+    date: '2026-05-23T15:00:00',
+    homeTeam: 'Sekhukhune United',
+    awayTeam: 'Siwelele FC',
+    venue: 'Thohoyandou Stadium',
+    round: 30
+  }
+];
+
+;
+
+// DOM elements
+const fixturesList = document.getElementById('fixturesList');
+const roundSelector = document.getElementById('round');
+
+// Improved display function with logo support (without initials)
+function displayFixtures(fixtures) {
+  fixturesList.innerHTML = fixtures.map(match => {
+    const matchDate = new Date(match.date);
+    const timeString = matchDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const dateString = matchDate.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+
+    // Function to generate logo path and fallback
+    const getTeamLogo = (teamName) => {
+      const logoPath = `images/teams/${teamName.toLowerCase().replace(/\s+/g, '-')}.png`;
+      return `<img src="${logoPath}" alt="${teamName}" class="team-logo" onerror="this.onerror=null; this.src='images/teams/default.png'">`;
+    };
+
+    return `
+      <div class="match-card">
+        <div class="match-header">
+          <span class="match-round">Round ${match.round}</span>
+          <span class="match-date">${dateString}</span>
+          <span class="match-venue">${match.venue}</span>
+        </div>
+        <div class="match-content">
+          <div class="team home-team">
+            ${getTeamLogo(match.homeTeam)}
+            <span class="team-name">${match.homeTeam}</span>
+          </div>
+          <div class="match-details">
+            <div class="match-time">${timeString}</div>
+            <span class="match-status upcoming">UPCOMING</span>
+          </div>
+          <div class="team away-team">
+            <span class="team-name">${match.awayTeam}</span>
+            ${getTeamLogo(match.awayTeam)}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Load fixtures based on selected round
+function loadFixtures() {
+  const selectedRound = roundSelector.value;
+  let fixturesToDisplay = PSL_FIXTURES;
+  
+  if (selectedRound !== 'all') {
+    fixturesToDisplay = PSL_FIXTURES.filter(match => match.round.toString() === selectedRound);
+  }
+  
+  displayFixtures(fixturesToDisplay);
+}
+
+// Event listeners
+roundSelector.addEventListener('change', loadFixtures);
+document.addEventListener('DOMContentLoaded', loadFixtures);
+</script>
+
 </body>
 </html>
