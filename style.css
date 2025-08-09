@@ -425,3 +425,262 @@ MOBILE RESPONSIVE STYLES
   }
 }
 
+
+/* ====================== 
+ FIXTURES SECTION STYLES
+====================== */
+.fixtures-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 25px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.fixtures-container h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #0a0a71;
+  font-size: 28px;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.fixtures-container h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: #0a0a71;
+}
+
+.fixtures-controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.round-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.round-selector label {
+  font-weight: 600;
+  color: #333;
+}
+
+.round-selector select {
+  padding: 8px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  font-family: "Inter", sans-serif;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.round-selector select:hover {
+  border-color: #0a0a71;
+}
+
+.round-selector select:focus {
+  outline: none;
+  border-color: #0a0a71;
+  box-shadow: 0 0 0 2px rgba(10,10,113,0.2);
+}
+
+/* Match Card */
+.match-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.match-header {
+  background-color: #b6c3f5;
+  padding: 8px 15px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.match-content {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+}
+.match-card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}
+
+.team {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.home-team {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.away-team {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.team-logo {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 10px;
+}
+
+.home-team .team-logo {
+  order: 1;
+}
+
+.match-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 15px;
+  min-width: 100px;
+}
+
+.match-time {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.match-status {
+  font-size: 0.8em;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background-color: #f0f0f0;
+}
+
+.match-status.upcoming {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+.match-status.live {
+  background: #e53935;
+  color: white;
+  animation: pulse 1.5s infinite;
+}
+
+.match-status.finished {
+  background: #4caf50;
+  color: white;
+}
+
+/* No Fixtures Message */
+.no-fixtures {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.no-fixtures p {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .fixtures-container {
+    padding: 15px;
+  }
+  
+  .match-content {
+    flex-direction: column;
+    padding: 15px;
+  }
+  
+  .team, .match-details {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .home-team, .away-team {
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .team-logo {
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+  
+  .team-name {
+    white-space: normal;
+  }
+  
+  .match-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .match-venue {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .fixtures-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .round-selector {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Ensure home team aligns to the right with logo first */
+.home-team {
+  justify-content: flex-end;
+  text-align: right;
+  flex-direction: row; /* Logo then name */
+}
+
+/* Ensure away team aligns to the left with name first */
+.away-team {
+  justify-content: flex-start;
+  text-align: left;
+  flex-direction: row; /* Name then logo */
+}
+
+/* Logo spacing */
+.team-logo {
+  margin: 0 8px;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
