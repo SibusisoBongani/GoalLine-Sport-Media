@@ -663,18 +663,18 @@ MOBILE RESPONSIVE STYLES
   }
 }
 
-/* Ensure home team aligns to the right with logo first */
+
 .home-team {
   justify-content: flex-end;
   text-align: right;
-  flex-direction: row; /* Logo then name */
+  flex-direction: row;
 }
 
-/* Ensure away team aligns to the left with name first */
+
 .away-team {
   justify-content: flex-start;
   text-align: left;
-  flex-direction: row; /* Name then logo */
+  flex-direction: row; 
 }
 
 /* Logo spacing */
@@ -684,3 +684,25 @@ MOBILE RESPONSIVE STYLES
   height: 30px;
   object-fit: contain;
 }
+
+.match-status.completed {
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+    .view-results-btn {
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-top: 5px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .view-results-btn:hover {
+      background-color: #0b7dda;
+    }
