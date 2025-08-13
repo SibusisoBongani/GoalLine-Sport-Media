@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
 </head>
 <body>
 
@@ -112,6 +113,7 @@
 // Configuration for 2025/2026 season
 const CURRENT_SEASON = '2025/2026';
 const SEASON_START_DATE = new Date('2025-08-08');
+const OFFICIAL_PSL_SITE = "https://www.psl.co.za/"; // Official PSL website
 
 // PSL fixtures for 2025/2026 season (Rounds 1-30)
 const PSL_FIXTURES = [
@@ -1857,11 +1859,15 @@ const PSL_FIXTURES = [
   }
 ];
 
-;
-
 // DOM elements
 const fixturesList = document.getElementById('fixturesList');
 const roundSelector = document.getElementById('round');
+
+// Function to check if a match has been played (date is in the past)
+function isMatchCompleted(matchDate) {
+  const now = new Date();
+  return new Date(matchDate) < now;
+}
 
 // Improved display function with logo support (without initials)
 function displayFixtures(fixtures) {
@@ -1869,6 +1875,7 @@ function displayFixtures(fixtures) {
     const matchDate = new Date(match.date);
     const timeString = matchDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const dateString = matchDate.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+    const isCompleted = isMatchCompleted(match.date);
 
     // Function to generate logo path and fallback
     const getTeamLogo = (teamName) => {
@@ -1890,7 +1897,10 @@ function displayFixtures(fixtures) {
           </div>
           <div class="match-details">
             <div class="match-time">${timeString}</div>
-            <span class="match-status upcoming">UPCOMING</span>
+            <span class="match-status ${isCompleted ? 'completed' : 'upcoming'}">
+              ${isCompleted ? 'COMPLETED' : 'UPCOMING'}
+            </span>
+            ${isCompleted ? `<a href="${OFFICIAL_PSL_SITE}" target="_blank" class="view-results-btn">View Results</a>` : ''}
           </div>
           <div class="team away-team">
             <span class="team-name">${match.awayTeam}</span>
