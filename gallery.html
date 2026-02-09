@@ -35,6 +35,7 @@
   <section class="gallery">
     <h1 style="text-align:center;">Gallery</h1>
     <div class="gallery-grid">
+      <a href="index.html#article32"><img src="images/cricket.png" alt="Proteas T20"/></a>
       <a href="index.html#article31"><img src="images/netball cup.jpg" alt="SPAR Proteas"/></a>
       <a href="index.html#article30"><img src="images/Pirates.jpg" alt="Orlando Pirates"/></a>
       <a href="index.html#article29"><img src="images/Varsity Cup.jpg.jpg" alt="Varsity Cup"/></a>
@@ -98,8 +99,108 @@
   &copy; 2025 All rights reserved | GoalLine Sports Media
 </div>
 
-
 </footer>
+
+<div id="articleModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <div id="modalArticleContent"></div>
+  </div>
+</div>
+
+<script>
+// Modal functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('articleModal');
+  const modalContent = document.getElementById('modalArticleContent');
+  const closeButton = document.querySelector('.close-button');
+  
+  // Simple article data without template literals
+  const articles = {
+    'index.html#article32': {
+      title: 'South Africa Post 213‑4 Against Canada in T20 World Cup Opener',
+      author: 'By Azola Ngxanga | 9 February 2026',
+      image: 'images/cricket.png',
+      content: 'South Africa got their T20 World Cup 2026 campaign off to a flying start, posting 213‑4 against Canada in their Group D opener at Ahmedabad\'s Narendra Modi Stadium. Skipper Aiden Markram led from the front with a composed half-century, anchoring a total that puts the Proteas firmly in control.<br><br>Markram\'s innings combined steady shot-making with timely aggression, helping South Africa navigate the middle overs after a fast start from openers Quinton de Kock and Ryan Rickelton. Contributions from David Miller and Tristan Stubbs accelerated the scoring in the final overs, ensuring the team crossed the 200-run mark — a competitive benchmark in T20 cricket.<br><br>For Canada, the bowlers showed grit but struggled to contain a full-strength South African lineup on a flat pitch that favored strokeplay. The visitors now face the challenge of chasing a daunting total under pressure.<br><br>With this strong performance, South Africa send a clear message to their group rivals and will look to maintain momentum as the tournament progresses.<br> (Image By: 📷ICC)'
+    },
+    'index.html#article31': {
+      title: 'SPAR Proteas Claim Fifth Africa Netball Cup Title',
+      author: 'By Azola Ngxanga | 15 December 2025',
+      image: 'images/netball cup.jpg',
+      content: 'The SPAR Proteas, South Africa\'s national women\'s netball team, secured their fifth Africa Netball Cup title on Sunday, defeating Uganda 56–34 in the final at the Griffins Saenda Sports Complex in Lilongwe, Malawi.<br><br>Led by head coach Jenny van Dyk, the Proteas dominated the match from the start, maintaining control through all four quarters. Their disciplined performance ensured that Uganda never gained the upper hand, resulting in a comfortable victory for South Africa.<br><br>"This win is a testament to our team\'s focus and hard work," said Van Dyk. "We prepared for every quarter, knowing Uganda would challenge us, and the players executed the plan perfectly."<br><br>Earlier in the tournament, South Africa also defeated Zimbabwe 84–32 in the semifinals, showing their strength and consistency throughout the competition.<br><br>In the men\'s division, South Africa\'s national team also retained the title, defeating Zimbabwe 40–29, highlighting the country\'s continued dominance in African netball.<br><br>This victory adds to South Africa\'s reputation as one of the continent\'s leading netball nations and sets the stage for upcoming international competitions in 2026, including the Commonwealth Games and other high-profile tournaments.<br> (Image By: 📷Netball South Africa)'
+    },
+    'index.html#article30': {
+      title: 'Orlando Pirates Cruise Past Tshakhuma in Nedbank Cup Clash',
+      author: 'By Azola Ngxanga | 07 February 2026',
+      image: 'images/Pirates.jpg',
+      content: 'Orlando Pirates continued their strong run in this season\'s Nedbank Cup with an emphatic 4-1 victory over third-tier side Tshakhuma Tsha Madzivhandila (TTM) on Saturday afternoon.<br><br>The Soweto giants, who sit among the Betway Premiership frontrunners and are regarded as strong contenders for silverware this season, asserted their dominance early and booked their place in the Round of 16 with a clinical performance.<br><br><b>Pirates Take Command Early</b><br><br>Orlando Pirates controlled possession from the opening whistle and broke the deadlock in the 10th minute after being awarded a penalty. Oswin Appollis was fouled inside the box, allowing Andre de Jong to step up and calmly convert from the spot to give the Buccaneers an early lead.<br><br><b>Second Goal and Tshakhuma Response</b><br><br>Pirates doubled their advantage in the 17th minute when Thalente Mbatha fired a long-range effort that took a slight deflection on its way into the net, putting the favourites firmly in control.<br><br>Tshakhuma showed resilience and pulled one back in the 38th minute through Sithembiso Ngobe, who curled a superb free-kick past the goalkeeper to reduce the deficit before halftime.<br><br><b>Second-Half Control and Final Flourish</b><br><br>The Buccaneers reasserted themselves early in the second half, with Patrick Maswanganyi restoring the two-goal cushion in the 51st minute after a well-worked team move.<br><br>Pirates managed the remainder of the match comfortably, limiting Tshakhuma\'s attacking threat and dictating the tempo. The victory was sealed in stoppage time when Sipho Mbule marked his return with a powerful strike from outside the box to make it 4-1.<br><br><b>What It Means</b><br><br>The result sees Orlando Pirates advance to the Nedbank Cup Last 16, keeping their hopes of another domestic trophy firmly alive. Tshakhuma can take pride in a spirited display, but the gulf in experience and quality ultimately proved decisive.<br> (Image By:📷 Alche Greeff/BackpagePix)'
+    },
+    'index.html#article29': {
+      title: 'SportPesa Announced as New National Sponsor of the FNB Varsity Cup',
+      author: 'By Azola Ngxanga | 29 January 2026',
+      image: 'images/Varsity Cup.jpg.jpg',
+      content: 'The FNB Varsity Cup has confirmed SportPesa as its newest national sponsor, a partnership that strengthens the tournament\'s role as a key development pathway for South African rugby talent.<br><br>The collaboration marks another step in SportPesa\'s growing involvement in local sport, following the betting company\'s multi-year partnership with Varsity Football men\'s and women\'s competitions, which began in January 2025. Their expansion into varsity rugby highlights a shared commitment to nurturing young athletes while supporting the balance between academic life and high-performance sport.<br><br>Lisa Roux, Sponsorship Manager at Advent Sport Entertainment and Media (ASEM), the agency managing the Varsity Cup, welcomed the partnership and highlighted the strong alignment between the two organisations.<br><br>"Partnering with SportPesa is an incredibly exciting step for the FNB Varsity Cup," Roux said. "Their passion for developing talent mirrors our vision for the tournament. Beyond high-performance rugby, they place real value on community upliftment and long-term athlete development, which makes this collaboration especially meaningful."<br><br>The 2026 FNB Varsity Cup season kicks off on Monday, 16 February, with the FNB Varsity Shield starting on Friday, 13 February. The FNB Varsity Cup Women\'s competition will run from 6 March to 17 April.<br> (Image By: 📷varsitydiski)'
+    }
+  };
+  
+  // Function to open modal with article content
+  function openModal(articleId) {
+    const article = articles[articleId];
+    if (article) {
+      // Create article HTML
+      const articleHTML = '<h2>' + article.title + '</h2>' +
+        '<h6 class="dateandauthor">' + article.author + '</span></h6>' +
+        '<img src="' + article.image + '" alt="' + article.title + '">' +
+        '<div class="share-container">' +
+        '<button class="share-btn" type="button">' +
+        '<i class="fas fa-share-alt"></i> Share' +
+        '</button>' +
+        '</div>' +
+        '<p>' + article.content + '</p>';
+      
+      // Populate modal
+      modalContent.innerHTML = articleHTML;
+      
+      // Show modal
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+  }
+  
+  // Add click event to all gallery images
+  const galleryLinks = document.querySelectorAll('.gallery-grid a');
+  galleryLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault(); // Prevent default navigation
+      const articleId = this.getAttribute('href'); // Get the article ID from href
+      console.log('Clicked article:', articleId); // Debug log
+      openModal(articleId);
+    });
+  });
+  
+  // Close modal when clicking the close button
+  closeButton.addEventListener('click', function() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scrolling
+  });
+  
+  // Close modal when clicking outside the modal content
+  window.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+  });
+  
+  // Close modal with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.style.display === 'block') {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+  });
+});
+</script>
 
 </body>
 </html>
