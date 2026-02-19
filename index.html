@@ -1523,6 +1523,190 @@ function createOverlay() {
     <div id="modalArticleContent"></div>
   </div>
 </div>
+<!-- Google Sheets Integration for New Stories -->
+<script>
+// Your Google Apps Script URL - REPLACE THIS WITH YOUR ACTUAL URL
+const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwlO4_kFwpf6AV95VfEAM7jajnbKBEwVq_rD4aY18hbBAN9w8mEl5IM7auM49wU2gaU/exec';
 
+// Function to load articles from Google Sheets
+async function loadGoogleSheetArticles() {
+  try {
+    const response = await fetch(GOOGLE_SHEETS_URL);
+    const articles = await response.json();
+    
+    if (articles && articles.length > 0) {
+      displaySheetArticles(articles);
+    }
+  } catch (error) {
+    console.log('No new articles from Google Sheets yet:', error);
+  }
+}
+
+// Function to display articles from Google Sheets
+function displaySheetArticles(articles) {
+  // Create container for sheet articles if it doesn't exist
+  let sheetContainer = document.getElementById('sheet-articles-container');
+  if (!sheetContainer) {
+    sheetContainer = document.createElement('div');
+    sheetContainer.id = 'sheet-articles-container';
+    const articlesSection = document.querySelector('.articles');
+    
+    // Insert at the BEGINNING so new stories appear first
+    articlesSection.insertBefore(sheetContainer, articlesSection.firstChild);
+  }
+  
+  // Clear container
+  sheetContainer.innerHTML = '';
+  
+  // Add each article
+  articles.forEach((article, index) => {
+    // Create a unique ID for the article
+    const articleId = `sheet-${article.id || index}`;
+    
+    // Format the date
+    const articleDate = article.date ? new Date(article.date) : new Date();
+    const formattedDate = articleDate.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+    
+    // Create article HTML
+    const articleHtml = `
+      <div class="article" id="${articleId}" data-date="${article.date || new Date().toISOString().split('T')[0]}">
+        <h2>${article.title || 'Untitled'}</h2>
+        <h6 class="dateandauthor">By ${article.author || 'Unknown'} | ${formattedDate}</h6>
+        <img src="images/${article.image || 'default.jpg'}" alt="${article.title}" onerror="this.src='images/default.jpg'">
+        <div class="share-container">
+          <button class="share-btn" type="button">  
+            <i class="fas fa-share-alt"></i> Share
+          </button>
+        </div>
+        <p>
+          ${article.excerpt || article.content.substring(0, 200) + '...'}
+          <span class="more-text" style="display:none;">${article.content || ''}</span>
+          <button class="read-more">Read more</button>
+        </p>
+      </div>
+    `;
+    
+    sheetContainer.innerHTML += articleHtml;
+  });
+  
+  // Re-attach event listeners to the new articles
+  attachSheetArticleListeners();
+  
+  // Re-sort all articles by date
+  sortAllArticles();
+  
+  // Reset the load more button to include new articles
+  resetLoadMoreButton();
+}
+
+// Attach event listeners to sheet articles
+function attachSheetArticleListeners() {
+  // Read More buttons
+  document.querySelectorAll('#sheet-articles-container .read-more').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const article = this.closest('.article');
+      const moreText = article.querySelector('.more-text');
+      
+      if (moreText.style.display === 'none') {
+        moreText.style.display = 'block';
+        this.textContent = 'Read less';
+      } else {
+        moreText.style.display = 'none';
+        this.textContent = 'Read more';
+      }
+    });
+  });
+  
+  // Share buttons
+  document.querySelectorAll('#sheet-articles-container .share-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const article = button.closest('.article');
+      const shareUrl = window.location.href + '#' + article.id;
+      
+      if (navigator.share) {
+        navigator.share({
+          title: article.querySelector('h2').textContent,
+          url: shareUrl
+        }).catch(() => {
+          prompt('Copy this link:', shareUrl);
+        });
+      } else {
+        prompt('Copy this link:', shareUrl);
+      }
+    });
+  });
+}
+
+// Sort all articles by date (newest first)
+function sortAllArticles() {
+  const articlesSection = document.querySelector('.articles');
+  const articles = Array.from(articlesSection.querySelectorAll('.article'));
+  
+  articles.sort((a, b) => {
+    const dateA = new Date(a.getAttribute('data-date'));
+    const dateB = new Date(b.getAttribute('data-date'));
+    return dateB - dateA;
+  });
+  
+  // Re-append in sorted order
+  articles.forEach(article => {
+    articlesSection.appendChild(article);
+  });
+}
+
+// Reset load more button to work with all articles
+function resetLoadMoreButton() {
+  const loadMoreBtn = document.getElementById('loadMore');
+  const allArticles = document.querySelectorAll('.article');
+  const initialVisible = 6;
+  
+  // Hide articles beyond first 6
+  allArticles.forEach((article, index) => {
+    article.style.display = index < initialVisible ? 'block' : 'none';
+  });
+  
+  let visibleCount = initialVisible;
+  
+  // Remove old event listener and add new one
+  const newLoadMoreBtn = loadMoreBtn.cloneNode(true);
+  loadMoreBtn.parentNode.replaceChild(newLoadMoreBtn, loadMoreBtn);
+  
+  newLoadMoreBtn.addEventListener('click', function() {
+    const currentArticles = document.querySelectorAll('.article');
+    
+    if (visibleCount >= currentArticles.length) {
+      // Hide extras
+      currentArticles.forEach((article, index) => {
+        article.style.display = index < initialVisible ? 'block' : 'none';
+      });
+      visibleCount = initialVisible;
+      this.textContent = 'View more stories';
+    } else {
+      // Show more
+      const nextBatch = Math.min(visibleCount + 3, currentArticles.length);
+      for (let i = visibleCount; i < nextBatch; i++) {
+        currentArticles[i].style.display = 'block';
+      }
+      visibleCount = nextBatch;
+      
+      if (visibleCount >= currentArticles.length) {
+        this.textContent = 'View less stories';
+      }
+    }
+  });
+}
+
+// Load articles when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  // Your existing DOMContentLoaded code will run first
+  // Then load Google Sheets articles
+  loadGoogleSheetArticles();
+});
+</script>
 </body>
 </html>
+
