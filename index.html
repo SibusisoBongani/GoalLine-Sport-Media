@@ -1571,24 +1571,24 @@ function displaySheetArticles(articles) {
       day: 'numeric' 
     });
     
-    // Create article HTML
-    const articleHtml = `
-      <div class="article" id="${articleId}" data-date="${article.date || new Date().toISOString().split('T')[0]}">
-        <h2>${article.title || 'Untitled'}</h2>
-        <h6 class="dateandauthor">By ${article.author || 'Unknown'} | ${formattedDate}</h6>
-        <img src="${article.image ? 'images/' + article.image : 'images/default.jpg'}" alt="${article.title}" onerror="this.src='images/default.jpg'">
-        <div class="share-container">
-          <button class="share-btn" type="button">  
-            <i class="fas fa-share-alt"></i> Share
-          </button>
-        </div>
-        <p>
-          ${article.excerpt || article.content.substring(0, 200) + '...'}
-          <span class="more-text" style="display:none;">${article.content || ''}</span>
-          <button class="read-more">Read more</button>
-        </p>
-      </div>
-    `;
+// Create article HTML
+const articleHtml = `
+  <div class="article" id="${articleId}" data-date="${article.date || new Date().toISOString().split('T')[0]}">
+    <h2>${article.title || 'Untitled'}</h2>
+    <h6 class="dateandauthor">By ${article.author || 'Unknown'} | ${formattedDate}</h6>
+    <img src="images/${article.image}" alt="${article.title}" onerror="this.src='images/default.jpg'">
+    <div class="share-container">
+      <button class="share-btn" type="button">  
+        <i class="fas fa-share-alt"></i> Share
+      </button>
+    </div>
+    <p>
+      ${article.excerpt || article.content.substring(0, 200) + '...'}
+      <span class="more-text" style="display:none;">${article.content || ''}</span>
+      <button class="read-more">Read more</button>
+    </p>
+  </div>
+`;
     
     sheetContainer.innerHTML += articleHtml;
   });
@@ -1709,5 +1709,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
