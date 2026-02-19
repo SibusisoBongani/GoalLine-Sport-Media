@@ -1576,7 +1576,7 @@ function displaySheetArticles(articles) {
       <div class="article" id="${articleId}" data-date="${article.date || new Date().toISOString().split('T')[0]}">
         <h2>${article.title || 'Untitled'}</h2>
         <h6 class="dateandauthor">By ${article.author || 'Unknown'} | ${formattedDate}</h6>
-        <img src="images/${article.image || 'default.jpg'}" alt="${article.title}" onerror="this.src='images/default.jpg'">
+        <img src="${article.image ? 'images/' + article.image : 'images/default.jpg'}" alt="${article.title}" onerror="this.src='images/default.jpg'">
         <div class="share-container">
           <button class="share-btn" type="button">  
             <i class="fas fa-share-alt"></i> Share
@@ -1709,4 +1709,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
