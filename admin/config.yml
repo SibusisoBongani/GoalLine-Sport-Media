@@ -1,0 +1,20 @@
+backend:
+  name: git-gateway
+  branch: main  # or master, depending on your repo
+
+media_folder: "images"  # Where images will be stored
+public_folder: "images" # How images will be accessed
+
+collections:
+  - name: "articles"  # Used in routes
+    label: "Articles" # Used in the UI
+    folder: "_posts"  # Where articles will be stored
+    create: true      # Allow users to create new articles
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Author", name: "author", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "image", widget: "image"}
+      - {label: "Image Credit", name: "imageCredit", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
