@@ -1,0 +1,12 @@
+[
+  {
+    "id": "43",
+    "title": "Example New Article Title",
+    "author": "Student Writer",
+    "date": "2026-02-20",
+    "image": "images/example.jpg",
+    "imageCredit": "Photographer Name",
+    "excerpt": "This is the first paragraph of the new article...",
+    "content": "This is the full content of the article with all the details and paragraphs..."
+  }
+]
