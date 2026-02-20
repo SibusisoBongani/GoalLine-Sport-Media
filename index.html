@@ -1581,8 +1581,8 @@ const articleHtml = `
     <h2>${article.title || 'Untitled'}</h2>
     <h6 class="dateandauthor">By ${article.author || 'Unknown'} | ${formattedDate}</h6>
     <img src="images/${article.image}" 
-     alt="${article.title}" 
-     onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
+         alt="${article.title}" 
+         onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
     <div class="share-container">
       <button class="share-btn" type="button">  
         <i class="fas fa-share-alt"></i> Share
@@ -1715,6 +1715,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
 
