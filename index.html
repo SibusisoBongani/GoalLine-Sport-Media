@@ -1576,7 +1576,7 @@ const articleHtml = `
   <div class="article" id="${articleId}" data-date="${article.date || new Date().toISOString().split('T')[0]}">
     <h2>${article.title || 'Untitled'}</h2>
     <h6 class="dateandauthor">By ${article.author || 'Unknown'} | ${formattedDate}</h6>
-    <img src="images/${article.image}" alt="${article.title}" onerror="this.src='images/default.jpg'">
+    <img src="images/${article.image}.jpg" alt="${article.title}" onerror="this.src='images/default.jpg'">
     <div class="share-container">
       <button class="share-btn" type="button">  
         <i class="fas fa-share-alt"></i> Share
@@ -1709,6 +1709,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
 
