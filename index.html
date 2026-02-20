@@ -1579,30 +1579,31 @@ function displaySheetArticles(articles) {
       day: 'numeric' 
     });
     
-// Create article HTML
-const articleHtml = `
-  <div class="article" id="${articleId}" data-date="${article.date || new Date().toISOString().split('T')[0]}">
-    <h2>${article.title || 'Untitled'}</h2>
-    <h6 class="dateandauthor">By ${article.author || 'Unknown'} | ${formattedDate}</h6>
-    <img src="images/${article.image}" 
-         alt="${article.title}" 
-         onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
-    <div class="share-container">
-      <button class="share-btn" type="button">  
-        <i class="fas fa-share-alt"></i> Share
-      </button>
-    </div>
-    <p>
-      ${article.excerpt || article.content.substring(0, 200) + '...'}
-      <span class="more-text" style="display:none;">${article.content || ''}</span>
-      <button class="read-more">Read more</button>
-    </p>
-  </div>
-`;
+    // Create article HTML
+    const articleHtml = `
+      <div class="article" id="${articleId}" data-date="${article.date || new Date().toISOString().split('T')[0]}">
+        <h2>${article.title || 'Untitled'}</h2>
+        <h6 class="dateandauthor">By ${article.author || 'Unknown'} | ${formattedDate}</h6>
+        <img src="images/${article.image}" 
+             alt="${article.title}" 
+             onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
+        <div class="share-container">
+          <button class="share-btn" type="button">  
+            <i class="fas fa-share-alt"></i> Share
+          </button>
+        </div>
+        <div class="article-content">
+          <p>${article.excerpt || article.content.replace(/<[^>]*>/g, '').substring(0, 200) + '...'}</p>
+          <div class="more-text" style="display:none;">
+            ${article.content}
+          </div>
+          <button class="read-more">Read more</button>
+        </div>
+      </div>
+    `;
     
     sheetContainer.innerHTML += articleHtml;
   });
-
   
   // Re-attach event listeners to the new articles
   attachSheetArticleListeners();
@@ -1614,19 +1615,22 @@ const articleHtml = `
   resetLoadMoreButton();
 }
 
-// Attach event listeners to sheet articles
+// Update the read more functionality for sheet articles
 function attachSheetArticleListeners() {
   // Read More buttons
   document.querySelectorAll('#sheet-articles-container .read-more').forEach(btn => {
     btn.addEventListener('click', function() {
       const article = this.closest('.article');
       const moreText = article.querySelector('.more-text');
+      const excerpt = article.querySelector('.article-content p');
       
       if (moreText.style.display === 'none') {
         moreText.style.display = 'block';
+        excerpt.style.display = 'none';
         this.textContent = 'Read less';
       } else {
         moreText.style.display = 'none';
+        excerpt.style.display = 'block';
         this.textContent = 'Read more';
       }
     });
@@ -1651,7 +1655,6 @@ function attachSheetArticleListeners() {
     });
   });
 }
-
 // Sort all articles by date (newest first)
 function sortAllArticles() {
   const articlesSection = document.querySelector('.articles');
@@ -1720,6 +1723,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
 
