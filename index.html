@@ -1538,11 +1538,15 @@ async function loadGoogleSheetArticles() {
     const response = await fetch(GOOGLE_SHEETS_URL);
     const articles = await response.json();
     
+    // Hide loading indicator
+    document.getElementById('loading-stories').style.display = 'none';
+    
     if (articles && articles.length > 0) {
       displaySheetArticles(articles);
     }
   } catch (error) {
     console.log('No new articles from Google Sheets yet:', error);
+    document.getElementById('loading-stories').style.display = 'none';
   }
 }
 
@@ -1715,6 +1719,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
 
