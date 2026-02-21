@@ -1553,21 +1553,20 @@ async function loadGoogleSheetArticles() {
 
 // Function to display articles from Google Sheets
 function displaySheetArticles(articles) {
-  // Create container for sheet articles if it doesn't exist
-  let sheetContainer = document.getElementById('sheet-articles-container');
-  if (!sheetContainer) {
-    sheetContainer = document.createElement('div');
-    sheetContainer.id = 'sheet-articles-container';
-    const articlesSection = document.querySelector('.articles');
-    
-    // Insert at the BEGINNING so new stories appear first
-    articlesSection.insertBefore(sheetContainer, articlesSection.firstChild);
+  // Get the articles section
+  const articlesSection = document.querySelector('.articles');
+  
+  // Remove any existing sheet articles container and its contents
+  const existingContainer = document.getElementById('sheet-articles-container');
+  if (existingContainer) {
+    existingContainer.remove();
   }
   
-  // Clear container
-  sheetContainer.innerHTML = '';
+  // Create new container for sheet articles
+  const sheetContainer = document.createElement('div');
+  sheetContainer.id = 'sheet-articles-container';
   
-  // Add each article
+  // Add each article to the container
   articles.forEach((article, index) => {
     // Create a unique ID for the article
     const articleId = `sheet-${article.id || index}`;
@@ -1580,10 +1579,10 @@ function displaySheetArticles(articles) {
       day: 'numeric' 
     });
     
-    // Use the excerpt directly from the article (already plain text from Apps Script)
+    // Use the excerpt directly from the article
     const excerpt = article.excerpt || '';
     
-    // Create article HTML matching your hard-coded structure EXACTLY
+    // Create article HTML
     const articleHtml = `
       <div class="article" id="${articleId}" data-date="${article.date || new Date().toISOString().split('T')[0]}">
         <h2>${article.title || 'Untitled'}</h2>
@@ -1607,7 +1606,10 @@ function displaySheetArticles(articles) {
     sheetContainer.innerHTML += articleHtml;
   });
   
-  // Re-attach event listeners to the new articles - NOW USING THE SAME LOGIC AS HARD-CODED
+  // Insert the sheet container at the beginning of articles section
+  articlesSection.insertBefore(sheetContainer, articlesSection.firstChild);
+  
+  // Re-attach event listeners to the new articles
   attachSheetArticleListeners();
   
   // Re-sort all articles by date
@@ -1774,6 +1776,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
 
