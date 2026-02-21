@@ -1566,6 +1566,11 @@ function displaySheetArticles(articles) {
   const sheetContainer = document.createElement('div');
   sheetContainer.id = 'sheet-articles-container';
   
+  // Add CSS to ensure no extra spacing
+  sheetContainer.style.margin = '0';
+  sheetContainer.style.padding = '0';
+  sheetContainer.style.display = 'contents'; // This makes the container act like it's not there
+  
   // Add each article to the container
   articles.forEach((article, index) => {
     // Create a unique ID for the article
@@ -1586,7 +1591,7 @@ function displaySheetArticles(articles) {
     const articleHtml = `
       <div class="article" id="${articleId}" data-date="${article.date || new Date().toISOString().split('T')[0]}">
         <h2>${article.title || 'Untitled'}</h2>
-        <h6 class="dateandauthor">By ${article.author || 'Unknown'} | ${formattedDate}</h6>
+        <h6 class="dateandauthor">${article.author || 'Unknown'} | ${formattedDate}</h6>
         <img src="images/${article.image}" 
              alt="${article.title}" 
              onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
@@ -1608,6 +1613,9 @@ function displaySheetArticles(articles) {
   
   // Insert the sheet container at the beginning of articles section
   articlesSection.insertBefore(sheetContainer, articlesSection.firstChild);
+  
+  // Force a reflow to ensure proper positioning
+  void articlesSection.offsetHeight;
   
   // Re-attach event listeners to the new articles
   attachSheetArticleListeners();
@@ -1776,6 +1784,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
 
