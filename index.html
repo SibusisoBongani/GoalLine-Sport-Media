@@ -1367,6 +1367,7 @@ Yusuf Maart’s move is seen as an inspiring moment for South African football, 
     </div>
   </div>
 
+
   <div class="copyright">
     &copy; 2025 All rights reserved | GoalLine Sports Media
   </div>
@@ -1551,7 +1552,6 @@ async function loadGoogleSheetArticles() {
 }
 
 // Function to display articles from Google Sheets
-// Function to display articles from Google Sheets
 function displaySheetArticles(articles) {
   // Create container for sheet articles if it doesn't exist
   let sheetContainer = document.getElementById('sheet-articles-container');
@@ -1607,7 +1607,7 @@ function displaySheetArticles(articles) {
     sheetContainer.innerHTML += articleHtml;
   });
   
-  // Re-attach event listeners to the new articles
+  // Re-attach event listeners to the new articles - NOW USING THE SAME LOGIC AS HARD-CODED
   attachSheetArticleListeners();
   
   // Re-sort all articles by date
@@ -1617,22 +1617,44 @@ function displaySheetArticles(articles) {
   resetLoadMoreButton();
 }
 
-// Update the read more functionality for sheet articles
-// Update the read more functionality for sheet articles
+// Update the read more functionality for sheet articles - MATCHING HARD-CODED BEHAVIOR
 function attachSheetArticleListeners() {
   // Read More buttons - use the SAME approach as hard-coded articles
   document.querySelectorAll('#sheet-articles-container .read-more').forEach(btn => {
     btn.addEventListener('click', function() {
       const article = this.closest('.article');
+      const isExpanded = article.classList.contains('expanded');
       const moreText = article.querySelector('.more-text');
-      
-      // Toggle like hard-coded articles do
-      if (moreText.style.display === 'none') {
-        moreText.style.display = 'block';
-        this.textContent = 'Read less';
-      } else {
-        moreText.style.display = 'none';
+      const overlay = document.querySelector('.overlay') || createOverlay();
+
+      if (isExpanded) {
+        // Collapse the article
+        article.classList.remove('expanded');
+        overlay.style.display = 'none';
         this.textContent = 'Read more';
+        
+        // Show all articles again
+        document.querySelectorAll('.article').forEach(a => {
+          a.style.display = 'block';
+        });
+      } else {
+        // First, collapse any other expanded articles
+        document.querySelectorAll('.article.expanded').forEach(expandedArticle => {
+          expandedArticle.classList.remove('expanded');
+          expandedArticle.querySelector('.read-more').textContent = 'Read more';
+        });
+        
+        // Expand this article
+        article.classList.add('expanded');
+        overlay.style.display = 'block';
+        this.textContent = 'Read less';
+        
+        // Hide other articles
+        document.querySelectorAll('.article').forEach(a => {
+          if (a !== article) {
+            a.style.display = 'none';
+          }
+        });
       }
     });
   });
@@ -1655,6 +1677,34 @@ function attachSheetArticleListeners() {
       }
     });
   });
+}
+
+// Helper function to create overlay (copied from your existing code)
+function createOverlay() {
+  // Check if overlay already exists
+  let overlay = document.querySelector('.overlay');
+  if (overlay) return overlay;
+  
+  overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  document.body.appendChild(overlay);
+  
+  // Clicking overlay closes expanded article
+  overlay.addEventListener('click', function() {
+    const expandedArticle = document.querySelector('.article.expanded');
+    if (expandedArticle) {
+      expandedArticle.classList.remove('expanded');
+      overlay.style.display = 'none';
+      expandedArticle.querySelector('.read-more').textContent = 'Read more';
+      
+      // Show all articles again
+      document.querySelectorAll('.article').forEach(a => {
+        a.style.display = 'block';
+      });
+    }
+  });
+  
+  return overlay;
 }
 // Sort all articles by date (newest first)
 function sortAllArticles() {
@@ -1724,6 +1774,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
+
 
 
 
