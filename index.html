@@ -1579,7 +1579,10 @@ function displaySheetArticles(articles) {
       day: 'numeric' 
     });
     
-    // Create article HTML
+    // Clean the content - remove any HTML tags from excerpt
+    const plainExcerpt = article.excerpt.replace(/<[^>]*>/g, '');
+    
+    // Create article HTML matching your hard-coded structure
     const articleHtml = `
       <div class="article" id="${articleId}" data-date="${article.date || new Date().toISOString().split('T')[0]}">
         <h2>${article.title || 'Untitled'}</h2>
@@ -1592,13 +1595,11 @@ function displaySheetArticles(articles) {
             <i class="fas fa-share-alt"></i> Share
           </button>
         </div>
-        <div class="article-content">
-          <p>${article.excerpt || article.content.replace(/<[^>]*>/g, '').substring(0, 200) + '...'}</p>
-          <div class="more-text" style="display:none;">
-            ${article.content}
-          </div>
+        <p>
+          ${plainExcerpt}
+          <span class="more-text" style="display:none;">${article.content}</span>
           <button class="read-more">Read more</button>
-        </div>
+        </p>
       </div>
     `;
     
@@ -1622,18 +1623,33 @@ function attachSheetArticleListeners() {
     btn.addEventListener('click', function() {
       const article = this.closest('.article');
       const moreText = article.querySelector('.more-text');
-      const excerpt = article.querySelector('.article-content p');
+      const paragraph = article.querySelector('p');
       
       if (moreText.style.display === 'none') {
         moreText.style.display = 'block';
-        excerpt.style.display = 'none';
+        // Hide the excerpt part but keep the paragraph structure
+        const excerptText = paragraph.childNodes[0]; // The text node before the span
+        if (excerptText) {
+          excerptText.textContent = ''; // Clear the excerpt text
+        }
         this.textContent = 'Read less';
       } else {
         moreText.style.display = 'none';
-        excerpt.style.display = 'block';
+        // Restore the excerpt
+        const excerpt = article.getAttribute('data-excerpt') || '';
+        const excerptText = paragraph.childNodes[0];
+        if (excerptText) {
+          excerptText.textContent = excerpt;
+        }
         this.textContent = 'Read more';
       }
     });
+    
+    // Store excerpt in data attribute
+    const article = btn.closest('.article');
+    const paragraph = article.querySelector('p');
+    const excerptText = paragraph.childNodes[0] ? paragraph.childNodes[0].textContent : '';
+    article.setAttribute('data-excerpt', excerptText);
   });
   
   // Share buttons
@@ -1723,6 +1739,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
 
