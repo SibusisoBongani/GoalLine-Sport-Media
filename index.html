@@ -1529,10 +1529,9 @@ function createOverlay() {
     <div id="modalArticleContent"></div>
   </div>
 </div>
-<!-- Google Sheets Integration for New Stories -->
 // Google Sheets Integration for New Stories
 <script>
-// Your Google Apps Script URL - Using the same URL
+// Your Google Apps Script URL
 const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwBpoo6lAqmovzQjF8RKFz39vBR7k-xZhNCrgl0Zmki6atz2u9JFxA-Y-SF8g9jymk/exec';
 
 // Function to load articles from Google Sheets using JSONP
@@ -1569,7 +1568,7 @@ function loadGoogleSheetArticles() {
         <p style="color: red;">Error processing articles: ${error.message}</p>
       `;
     } finally {
-      // Clean up after 5 seconds (give time for display)
+      // Clean up after 5 seconds
       setTimeout(() => {
         delete window[callbackName];
         if (document.body.contains(script)) {
@@ -1579,7 +1578,7 @@ function loadGoogleSheetArticles() {
     }
   };
   
-  // Handle errors (if the script fails to load)
+  // Handle errors
   script.onerror = function() {
     console.error('Failed to load Google Sheets script');
     document.getElementById('loading-stories').innerHTML = `
@@ -1604,7 +1603,7 @@ function displaySheetArticles(articles) {
   // Get the articles section
   const articlesSection = document.querySelector('.articles');
   
-  // Remove any existing sheet articles container and its contents
+  // Remove any existing sheet articles container
   const existingContainer = document.getElementById('sheet-articles-container');
   if (existingContainer) {
     existingContainer.remove();
@@ -1613,6 +1612,11 @@ function displaySheetArticles(articles) {
   // Create new container for sheet articles
   const sheetContainer = document.createElement('div');
   sheetContainer.id = 'sheet-articles-container';
+  
+  // IMPORTANT: Make the container not interfere with grid layout
+  sheetContainer.style.display = 'contents';
+  sheetContainer.style.margin = '0';
+  sheetContainer.style.padding = '0';
   
   // Add each article to the container
   articles.forEach((article, index) => {
@@ -1659,12 +1663,8 @@ function displaySheetArticles(articles) {
     sheetContainer.innerHTML += articleHtml;
   });
   
-  // Insert the sheet container at the beginning of articles section
-  if (articlesSection.firstChild) {
-    articlesSection.insertBefore(sheetContainer, articlesSection.firstChild);
-  } else {
-    articlesSection.appendChild(sheetContainer);
-  }
+  // Append the sheet container to articles section (not insertBefore)
+  articlesSection.appendChild(sheetContainer);
   
   // Hide loading indicator
   document.getElementById('loading-stories').style.display = 'none';
@@ -1672,11 +1672,34 @@ function displaySheetArticles(articles) {
   // Re-attach event listeners to the new articles
   attachSheetArticleListeners();
   
-  // Re-sort all articles by date
-  sortAllArticles();
+  // Sort ALL articles by date (newest first)
+  sortAllArticlesByDate();
   
-  // Reset the load more button to include new articles
+  // Reset the load more button
   resetLoadMoreButton();
+}
+
+// NEW FUNCTION: Sort all articles by date (newest first)
+function sortAllArticlesByDate() {
+  const articlesSection = document.querySelector('.articles');
+  const allArticles = Array.from(articlesSection.querySelectorAll('.article'));
+  
+  // Sort articles by date (newest first)
+  allArticles.sort((a, b) => {
+    const dateA = new Date(a.getAttribute('data-date'));
+    const dateB = new Date(b.getAttribute('data-date'));
+    return dateB - dateA; // Newest first
+  });
+  
+  // Re-append in sorted order (this maintains grid layout)
+  allArticles.forEach(article => {
+    articlesSection.appendChild(article);
+  });
+  
+  console.log('Articles sorted by date. Newest first:', allArticles.map(a => a.getAttribute('data-date')));
+  
+  // Force a reflow to ensure grid recalculation
+  void articlesSection.offsetHeight;
 }
 
 // Update the read more functionality for sheet articles
@@ -1742,7 +1765,6 @@ function attachSheetArticleListeners() {
 
 // Helper function to create overlay
 function createOverlay() {
-  // Check if overlay already exists
   let overlay = document.querySelector('.overlay');
   if (overlay) return overlay;
   
@@ -1750,7 +1772,6 @@ function createOverlay() {
   overlay.className = 'overlay';
   document.body.appendChild(overlay);
   
-  // Clicking overlay closes expanded article
   overlay.addEventListener('click', function() {
     const expandedArticle = document.querySelector('.article.expanded');
     if (expandedArticle) {
@@ -1758,7 +1779,6 @@ function createOverlay() {
       overlay.style.display = 'none';
       expandedArticle.querySelector('.read-more').textContent = 'Read more';
       
-      // Show all articles again
       document.querySelectorAll('.article').forEach(a => {
         a.style.display = 'block';
       });
@@ -1766,23 +1786,6 @@ function createOverlay() {
   });
   
   return overlay;
-}
-
-// Sort all articles by date (newest first)
-function sortAllArticles() {
-  const articlesSection = document.querySelector('.articles');
-  const articles = Array.from(articlesSection.querySelectorAll('.article'));
-  
-  articles.sort((a, b) => {
-    const dateA = new Date(a.getAttribute('data-date'));
-    const dateB = new Date(b.getAttribute('data-date'));
-    return dateB - dateA;
-  });
-  
-  // Re-append in sorted order
-  articles.forEach(article => {
-    articlesSection.appendChild(article);
-  });
 }
 
 // Reset load more button to work with all articles
@@ -1829,15 +1832,13 @@ function resetLoadMoreButton() {
 
 // Load articles when the page loads
 document.addEventListener('DOMContentLoaded', function() {
-  // Load Google Sheets articles after a slight delay
-  setTimeout(loadGoogleSheetArticles, 500);
-  
-  // Rest of your existing DOMContentLoaded code will run here
-  // (Keep your existing DOMContentLoaded code above this)
+  // Load Google Sheets articles
+  loadGoogleSheetArticles();
 });
 </script>
 </body>
 </html>
+
 
 
 
