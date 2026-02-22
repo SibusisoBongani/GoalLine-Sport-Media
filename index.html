@@ -1534,14 +1534,21 @@ function createOverlay() {
 const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzShfV0ngy0EqDukmLjyVy-ZvzV4obWBfH2SHsPjP781FhrBb4wxcNU3BYmGmmMgG0q/exec';
 
 // Function to load articles from Google Sheets
-// Function to load articles from Google Sheets
 async function loadGoogleSheetArticles() {
   try {
     // Show loading indicator
     document.getElementById('loading-stories').style.display = 'block';
     
+    console.log('Fetching articles from:', GOOGLE_SHEETS_URL);
+    
     const response = await fetch(GOOGLE_SHEETS_URL);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     const articles = await response.json();
+    console.log('Articles received:', articles);
     
     if (articles && articles.length > 0) {
       // Store articles in a temporary variable
@@ -1549,14 +1556,20 @@ async function loadGoogleSheetArticles() {
       
       // Display them immediately
       displaySheetArticles(articles);
+      console.log('Displayed', articles.length, 'articles');
+    } else {
+      console.log('No articles received');
     }
     
     // Hide loading indicator
     document.getElementById('loading-stories').style.display = 'none';
     
   } catch (error) {
-    console.log('No new articles from Google Sheets yet:', error);
-    document.getElementById('loading-stories').style.display = 'none';
+    console.error('Error loading Google Sheets articles:', error);
+    document.getElementById('loading-stories').innerHTML = `
+      <p style="color: red;">Error loading articles: ${error.message}</p>
+      <p>Check console for details (F12)</p>
+    `;
   }
 }
 
@@ -1802,6 +1815,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
 
