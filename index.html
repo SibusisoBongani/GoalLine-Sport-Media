@@ -1369,6 +1369,7 @@ Yusuf Maart’s move is seen as an inspiring moment for South African football, 
 
 
   <div class="copyright">
+    
     &copy; 2025 All rights reserved | GoalLine Sports Media
   </div>
 </footer>
@@ -1529,52 +1530,74 @@ function createOverlay() {
   </div>
 </div>
 <!-- Google Sheets Integration for New Stories -->
+// Google Sheets Integration for New Stories
 <script>
-// Your Google Apps Script URL - REPLACE THIS WITH YOUR ACTUAL URL
+// Your Google Apps Script URL - Using the same URL
 const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzShfV0ngy0EqDukmLjyVy-ZvzV4obWBfH2SHsPjP781FhrBb4wxcNU3BYmGmmMgG0q/exec';
 
-// Function to load articles from Google Sheets
-async function loadGoogleSheetArticles() {
-  try {
-    // Show loading indicator
-    document.getElementById('loading-stories').style.display = 'block';
-    
-    console.log('Fetching articles from:', GOOGLE_SHEETS_URL);
-    
-    const response = await fetch(GOOGLE_SHEETS_URL);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const articles = await response.json();
-    console.log('Articles received:', articles);
-    
-    if (articles && articles.length > 0) {
-      // Store articles in a temporary variable
-      window.sheetArticles = articles;
+// Function to load articles from Google Sheets using JSONP
+function loadGoogleSheetArticles() {
+  // Show loading indicator
+  document.getElementById('loading-stories').style.display = 'block';
+  document.getElementById('loading-stories').innerHTML = '<div class="loader"></div><p>Loading latest stories...</p>';
+  
+  // Create a unique callback name
+  const callbackName = 'jsonp_callback_' + Date.now();
+  
+  // Create a script element
+  const script = document.createElement('script');
+  
+  // Define the callback function globally
+  window[callbackName] = function(data) {
+    try {
+      console.log('Articles received via JSONP:', data);
       
-      // Display them immediately
-      displaySheetArticles(articles);
-      console.log('Displayed', articles.length, 'articles');
-    } else {
-      console.log('No articles received');
+      if (data && data.length > 0) {
+        // Store articles in a temporary variable
+        window.sheetArticles = data;
+        
+        // Display them immediately
+        displaySheetArticles(data);
+        console.log('Displayed', data.length, 'articles');
+      } else {
+        console.log('No articles received');
+        document.getElementById('loading-stories').style.display = 'none';
+      }
+    } catch (error) {
+      console.error('Error processing articles:', error);
+      document.getElementById('loading-stories').innerHTML = `
+        <p style="color: red;">Error processing articles: ${error.message}</p>
+      `;
+    } finally {
+      // Clean up after 5 seconds (give time for display)
+      setTimeout(() => {
+        delete window[callbackName];
+        if (document.body.contains(script)) {
+          document.body.removeChild(script);
+        }
+      }, 5000);
     }
-    
-    // Hide loading indicator
-    document.getElementById('loading-stories').style.display = 'none';
-    
-  } catch (error) {
-    console.error('Error loading Google Sheets articles:', error);
+  };
+  
+  // Handle errors (if the script fails to load)
+  script.onerror = function() {
+    console.error('Failed to load Google Sheets script');
     document.getElementById('loading-stories').innerHTML = `
-      <p style="color: red;">Error loading articles: ${error.message}</p>
+      <p style="color: red;">Error loading articles. Please try again later.</p>
       <p>Check console for details (F12)</p>
     `;
-  }
+    delete window[callbackName];
+    if (document.body.contains(script)) {
+      document.body.removeChild(script);
+    }
+  };
+  
+  // Set the script source with callback parameter
+  script.src = GOOGLE_SHEETS_URL + '?callback=' + callbackName;
+  
+  // Add the script to the document
+  document.body.appendChild(script);
 }
-
-// Load articles immediately when script runs
-loadGoogleSheetArticles();
 
 // Function to display articles from Google Sheets
 function displaySheetArticles(articles) {
@@ -1591,23 +1614,23 @@ function displaySheetArticles(articles) {
   const sheetContainer = document.createElement('div');
   sheetContainer.id = 'sheet-articles-container';
   
-  // Add CSS to ensure no extra spacing
-  sheetContainer.style.margin = '0';
-  sheetContainer.style.padding = '0';
-  sheetContainer.style.display = 'contents'; // This makes the container act like it's not there
-  
   // Add each article to the container
   articles.forEach((article, index) => {
     // Create a unique ID for the article
     const articleId = `sheet-${article.id || index}`;
     
     // Format the date
-    const articleDate = article.date ? new Date(article.date) : new Date();
-    const formattedDate = articleDate.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
+    let formattedDate = '';
+    try {
+      const articleDate = article.date ? new Date(article.date) : new Date();
+      formattedDate = articleDate.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+    } catch (e) {
+      formattedDate = 'Unknown date';
+    }
     
     // Use the excerpt directly from the article
     const excerpt = article.excerpt || '';
@@ -1617,7 +1640,7 @@ function displaySheetArticles(articles) {
       <div class="article" id="${articleId}" data-date="${article.date || new Date().toISOString().split('T')[0]}">
         <h2>${article.title || 'Untitled'}</h2>
         <h6 class="dateandauthor">${article.author || 'Unknown'} | ${formattedDate}</h6>
-        <img src="images/${article.image}" 
+        <img src="images/${article.image || 'default.jpg'}" 
              alt="${article.title}" 
              onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
         <div class="share-container">
@@ -1627,7 +1650,7 @@ function displaySheetArticles(articles) {
         </div>
         <p>
           ${excerpt}
-          <span class="more-text" style="display:none;">${article.content}</span>
+          <span class="more-text" style="display:none;">${article.content || ''}</span>
           <button class="read-more">Read more</button>
         </p>
       </div>
@@ -1637,10 +1660,14 @@ function displaySheetArticles(articles) {
   });
   
   // Insert the sheet container at the beginning of articles section
-  articlesSection.insertBefore(sheetContainer, articlesSection.firstChild);
+  if (articlesSection.firstChild) {
+    articlesSection.insertBefore(sheetContainer, articlesSection.firstChild);
+  } else {
+    articlesSection.appendChild(sheetContainer);
+  }
   
-  // Force a reflow to ensure proper positioning
-  void articlesSection.offsetHeight;
+  // Hide loading indicator
+  document.getElementById('loading-stories').style.display = 'none';
   
   // Re-attach event listeners to the new articles
   attachSheetArticleListeners();
@@ -1652,14 +1679,13 @@ function displaySheetArticles(articles) {
   resetLoadMoreButton();
 }
 
-// Update the read more functionality for sheet articles - MATCHING HARD-CODED BEHAVIOR
+// Update the read more functionality for sheet articles
 function attachSheetArticleListeners() {
-  // Read More buttons - use the SAME approach as hard-coded articles
+  // Read More buttons
   document.querySelectorAll('#sheet-articles-container .read-more').forEach(btn => {
     btn.addEventListener('click', function() {
       const article = this.closest('.article');
       const isExpanded = article.classList.contains('expanded');
-      const moreText = article.querySelector('.more-text');
       const overlay = document.querySelector('.overlay') || createOverlay();
 
       if (isExpanded) {
@@ -1714,7 +1740,7 @@ function attachSheetArticleListeners() {
   });
 }
 
-// Helper function to create overlay (copied from your existing code)
+// Helper function to create overlay
 function createOverlay() {
   // Check if overlay already exists
   let overlay = document.querySelector('.overlay');
@@ -1741,6 +1767,7 @@ function createOverlay() {
   
   return overlay;
 }
+
 // Sort all articles by date (newest first)
 function sortAllArticles() {
   const articlesSection = document.querySelector('.articles');
@@ -1800,21 +1827,18 @@ function resetLoadMoreButton() {
   });
 }
 
+// Load articles when the page loads
 document.addEventListener('DOMContentLoaded', function() {
-  // If sheet articles already loaded, sort them with the rest
-  if (window.sheetArticles) {
-    sortAllArticles();
-  }
+  // Load Google Sheets articles after a slight delay
+  setTimeout(loadGoogleSheetArticles, 500);
   
-  // Rest of your existing DOMContentLoaded code...
-  const articlesContainer = document.querySelector('.articles');
-  const articles = Array.from(articlesContainer.querySelectorAll('.article'));
-  
-  // ... rest of your sorting and load more logic
+  // Rest of your existing DOMContentLoaded code will run here
+  // (Keep your existing DOMContentLoaded code above this)
 });
 </script>
 </body>
 </html>
+
 
 
 
