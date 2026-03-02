@@ -19,14 +19,15 @@
   <!-- Supabase Library -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- Supabase Configuration and Tracking Functions -->
-  <script>
+ 
+<!-- Supabase Configuration and Tracking Functions -->
+<script>
     // REPLACE THESE WITH YOUR ACTUAL SUPABASE KEYS
     const SUPABASE_URL = 'https://vafvktuinjpbglvtkrvz.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_r2-avTDTSAwS5Z36AJ_DxA_bp7gHxqN';
     
     // Initialize Supabase
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     
     // Function to get or create a visitor ID
     function getVisitorId() {
@@ -52,8 +53,7 @@
           articleTitle = articleInfo.title;
         }
         
-        // Insert into Supabase
-        const { error } = await supabase
+        const { error } = await supabaseClient
           .from('page_views')
           .insert([
             {
@@ -75,7 +75,7 @@
     // Function to track shares
     async function trackShare(articleId, articleTitle) {
       try {
-        const { error } = await supabase
+        const { error } = await supabaseClient
           .from('shares')
           .insert([
             {
@@ -90,6 +90,10 @@
         console.error('Failed to track share:', err);
       }
     }
+    
+    // Make functions globally available
+    window.trackPageView = trackPageView;
+    window.trackShare = trackShare;
   </script>
 
   <!-- Favicon Configuration -->
@@ -1869,6 +1873,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
 
