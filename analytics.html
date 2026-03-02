@@ -28,12 +28,35 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
     }
     
     h1 {
       color: #1e3c72;
       border-left: 6px solid #f39c12;
       padding-left: 20px;
+      font-size: 24px;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .refresh-btn {
+      background: #f39c12;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    
+    .refresh-btn:hover {
+      background: #e67e22;
     }
     
     .logout-btn {
@@ -44,6 +67,7 @@
       border-radius: 6px;
       cursor: pointer;
       font-weight: 600;
+      transition: background 0.2s;
     }
     
     .logout-btn:hover {
@@ -63,6 +87,20 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: center;
+      transition: transform 0.2s;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    
+    .stat-card h3 {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     
     .stat-number {
@@ -72,11 +110,17 @@
       margin: 10px 0;
     }
     
+    .stat-label {
+      color: #999;
+      font-size: 13px;
+    }
+    
     .section-title {
       color: #1e3c72;
       margin: 30px 0 20px;
       padding-bottom: 10px;
       border-bottom: 2px solid #f39c12;
+      font-size: 20px;
     }
     
     table {
@@ -93,6 +137,7 @@
       color: white;
       padding: 15px;
       text-align: left;
+      font-weight: 600;
     }
     
     td {
@@ -110,23 +155,25 @@
       color: #666;
     }
     
-    .refresh-btn {
-      background: #f39c12;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      margin-bottom: 20px;
+    .error {
+      color: #e74c3c;
+      padding: 20px;
+      background: #fdeaea;
+      border-radius: 8px;
+      margin: 20px 0;
+      text-align: center;
     }
     
     .back-link {
       display: inline-block;
-      margin-bottom: 20px;
+      margin-top: 20px;
       color: #1e3c72;
       text-decoration: none;
       font-weight: 600;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -134,67 +181,74 @@
   <div class="container">
     <div class="header">
       <h1>📊 GoalLine Analytics Dashboard</h1>
-      <button class="logout-btn" onclick="logout()">Logout</button>
+      <div class="button-group">
+        <button class="refresh-btn" onclick="loadAllStats()">↻ Refresh Data</button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
     </div>
-    
-    <button class="refresh-btn" onclick="loadAllStats()">↻ Refresh Data</button>
     
     <div class="stats-grid">
       <div class="stat-card">
         <h3>Total Visitors</h3>
         <div class="stat-number" id="totalVisitors">-</div>
-        <div>Unique visitors all time</div>
+        <div class="stat-label">Unique visitors all time</div>
       </div>
       
       <div class="stat-card">
         <h3>Total Page Views</h3>
         <div class="stat-number" id="totalViews">-</div>
-        <div>All page visits</div>
+        <div class="stat-label">All page visits</div>
       </div>
       
       <div class="stat-card">
         <h3>Today's Views</h3>
         <div class="stat-number" id="todayViews">-</div>
-        <div>Last 24 hours</div>
+        <div class="stat-label">Last 24 hours</div>
       </div>
       
       <div class="stat-card">
         <h3>Total Shares</h3>
         <div class="stat-number" id="totalShares">-</div>
-        <div>Articles shared</div>
+        <div class="stat-label">Articles shared</div>
       </div>
     </div>
     
     <h2 class="section-title">🔥 Most Read Articles</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Article Title</th>
-          <th>Views</th>
-          <th>Shares</th>
-        </tr>
-      </thead>
-      <tbody id="topArticlesTable">
-        <tr><td colspan="3" class="loading">Loading data...</td></tr>
-      </tbody>
-    </table>
+    <div id="topArticlesContainer">
+      <table>
+        <thead>
+          <tr>
+            <th>Article Title</th>
+            <th>Views</th>
+            <th>Shares</th>
+          </tr>
+        </thead>
+        <tbody id="topArticlesTable">
+          <tr><td colspan="3" class="loading">Loading data...</td></tr>
+        </tbody>
+      </table>
+    </div>
     
     <h2 class="section-title">📈 Recent Activity</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Time</th>
-          <th>Page/Article</th>
-        </tr>
-      </thead>
-      <tbody id="recentActivityTable">
-        <tr><td colspan="2" class="loading">Loading data...</td></tr>
-      </tbody>
-    </table>
+    <div id="recentActivityContainer">
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Page/Article</th>
+          </tr>
+        </thead>
+        <tbody id="recentActivityTable">
+          <tr><td colspan="2" class="loading">Loading data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <a href="index.html" class="back-link">← Back to Main Site</a>
   </div>
 
   <script>
-    // CHECK AUTHENTICATION FIRST - If not logged in, redirect to login
+    // CHECK AUTHENTICATION FIRST
     if (!sessionStorage.getItem('analytics_auth')) {
       window.location.href = 'analytics-secure.html';
     }
@@ -202,27 +256,40 @@
     // Your Supabase credentials
     const SUPABASE_URL = 'https://vafvktuinjpbglvtkrvz.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_r2-avTDTSAwS5Z36AJ_DxA_bp7gHxqN';
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    // Initialize Supabase
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    // Logout function
     function logout() {
       sessionStorage.removeItem('analytics_auth');
       window.location.href = 'analytics-secure.html';
     }
 
+    // Main function to load all stats
     async function loadAllStats() {
-      await Promise.all([
-        loadTotalStats(),
-        loadTopArticles(),
-        loadRecentActivity()
-      ]);
+      console.log('Loading stats...');
+      try {
+        await Promise.all([
+          loadTotalStats(),
+          loadTopArticles(),
+          loadRecentActivity()
+        ]);
+        console.log('Stats loaded successfully');
+      } catch (error) {
+        console.error('Error loading stats:', error);
+      }
     }
 
+    // Load total statistics
     async function loadTotalStats() {
       try {
         // Get unique visitors
-        const { data: visitors } = await supabase
+        const { data: visitors, error: visitorsError } = await supabaseClient
           .from('page_views')
           .select('visitor_id');
+        
+        if (visitorsError) throw visitorsError;
         
         if (visitors) {
           const uniqueVisitors = new Set(visitors.map(v => v.visitor_id)).size;
@@ -230,39 +297,47 @@
         }
 
         // Get total views
-        const { count: totalViews } = await supabase
+        const { count: totalViews, error: viewsError } = await supabaseClient
           .from('page_views')
           .select('*', { count: 'exact', head: true });
         
+        if (viewsError) throw viewsError;
         document.getElementById('totalViews').textContent = totalViews || 0;
 
         // Get today's views
         const today = new Date().toISOString().split('T')[0];
-        const { count: todayViews } = await supabase
+        const { count: todayViews, error: todayError } = await supabaseClient
           .from('page_views')
           .select('*', { count: 'exact', head: true })
           .gte('viewed_at', today);
         
+        if (todayError) throw todayError;
         document.getElementById('todayViews').textContent = todayViews || 0;
 
         // Get total shares
-        const { count: totalShares } = await supabase
+        const { count: totalShares, error: sharesError } = await supabaseClient
           .from('shares')
           .select('*', { count: 'exact', head: true });
         
+        if (sharesError) throw sharesError;
         document.getElementById('totalShares').textContent = totalShares || 0;
 
       } catch (err) {
-        console.error('Error loading stats:', err);
+        console.error('Error loading total stats:', err);
+        showError('totalStats', err.message);
       }
     }
 
+    // Load most read articles
     async function loadTopArticles() {
       try {
-        const { data: articleViews } = await supabase
+        // Get article views
+        const { data: articleViews, error: viewsError } = await supabaseClient
           .from('page_views')
           .select('article_id, article_title')
           .not('article_id', 'is', null);
+
+        if (viewsError) throw viewsError;
 
         // Count views per article
         const viewCounts = {};
@@ -270,6 +345,7 @@
           if (view.article_id) {
             if (!viewCounts[view.article_id]) {
               viewCounts[view.article_id] = {
+                id: view.article_id,
                 title: view.article_title || 'Unknown',
                 count: 0
               };
@@ -279,9 +355,11 @@
         });
 
         // Get share counts
-        const { data: shares } = await supabase
+        const { data: shares, error: sharesError } = await supabaseClient
           .from('shares')
           .select('article_id');
+
+        if (sharesError) throw sharesError;
 
         const shareCounts = {};
         shares?.forEach(share => {
@@ -289,8 +367,7 @@
         });
 
         // Sort and display
-        const sortedArticles = Object.entries(viewCounts)
-          .map(([id, data]) => ({ id, ...data }))
+        const sortedArticles = Object.values(viewCounts)
           .sort((a, b) => b.count - a.count)
           .slice(0, 10);
 
@@ -309,36 +386,58 @@
 
       } catch (err) {
         console.error('Error loading top articles:', err);
+        document.getElementById('topArticlesTable').innerHTML = 
+          `<tr><td colspan="3" class="error">Error loading data: ${err.message}</td></tr>`;
       }
     }
 
+    // Load recent activity
     async function loadRecentActivity() {
       try {
-        const { data: recent } = await supabase
+        const { data: recent, error } = await supabaseClient
           .from('page_views')
           .select('*')
           .order('viewed_at', { ascending: false })
           .limit(10);
 
+        if (error) throw error;
+
         const tableBody = document.getElementById('recentActivityTable');
         if (!recent || recent.length === 0) {
           tableBody.innerHTML = '<tr><td colspan="2" class="loading">No recent activity</td></tr>';
         } else {
-          tableBody.innerHTML = recent.map(view => `
-            <tr>
-              <td>${new Date(view.viewed_at).toLocaleString()}</td>
-              <td>${view.article_title || view.page_url || 'Homepage'}</td>
-            </tr>
-          `).join('');
+          tableBody.innerHTML = recent.map(view => {
+            const date = new Date(view.viewed_at);
+            const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+            return `
+              <tr>
+                <td>${formattedDate}</td>
+                <td>${view.article_title || view.page_url || 'Homepage'}</td>
+              </tr>
+            `;
+          }).join('');
         }
 
       } catch (err) {
         console.error('Error loading recent activity:', err);
+        document.getElementById('recentActivityTable').innerHTML = 
+          `<tr><td colspan="2" class="error">Error loading data: ${err.message}</td></tr>`;
+      }
+    }
+
+    // Helper function to show errors
+    function showError(elementId, message) {
+      const element = document.getElementById(elementId);
+      if (element) {
+        element.innerHTML = `<span style="color: #e74c3c;">Error: ${message}</span>`;
       }
     }
 
     // Load data when page loads
-    document.addEventListener('DOMContentLoaded', loadAllStats);
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Dashboard loaded, fetching stats...');
+      loadAllStats();
+    });
   </script>
 </body>
 </html>
