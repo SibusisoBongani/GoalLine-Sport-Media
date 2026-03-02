@@ -1748,9 +1748,13 @@ function sortAllArticlesByDate() {
 // Attach listeners to sheet articles
 function attachSheetArticleListeners() {
   document.querySelectorAll('#sheet-articles-container .read-more').forEach(btn => {
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      
       const article = this.closest('.article');
       const isExpanded = article.classList.contains('expanded');
+      const moreText = article.querySelector('.more-text');
       const overlay = document.querySelector('.overlay') || createOverlay();
 
       if (!isExpanded) {
@@ -1764,6 +1768,7 @@ function attachSheetArticleListeners() {
 
       if (isExpanded) {
         article.classList.remove('expanded');
+        moreText.style.display = 'none';
         overlay.style.display = 'none';
         this.textContent = 'Read more';
         
@@ -1773,10 +1778,12 @@ function attachSheetArticleListeners() {
       } else {
         document.querySelectorAll('.article.expanded').forEach(expandedArticle => {
           expandedArticle.classList.remove('expanded');
+          expandedArticle.querySelector('.more-text').style.display = 'none';
           expandedArticle.querySelector('.read-more').textContent = 'Read more';
         });
         
         article.classList.add('expanded');
+        moreText.style.display = 'inline';
         overlay.style.display = 'block';
         this.textContent = 'Read less';
         
@@ -1790,8 +1797,11 @@ function attachSheetArticleListeners() {
   });
   
   document.querySelectorAll('#sheet-articles-container .share-btn').forEach(button => {
-    button.addEventListener('click', () => {
-      const article = button.closest('.article');
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      
+      const article = this.closest('.article');
       const articleId = article.id;
       const articleTitle = article.querySelector('h2').textContent;
       const shareUrl = window.location.href + '#' + article.id;
@@ -1803,10 +1813,12 @@ function attachSheetArticleListeners() {
           title: articleTitle,
           url: shareUrl
         }).catch(() => {
-          prompt('Copy this link:', shareUrl);
+          copyToClipboard(shareUrl);
+          alert('Link copied to clipboard!');
         });
       } else {
-        prompt('Copy this link:', shareUrl);
+        copyToClipboard(shareUrl);
+        alert('Link copied to clipboard!');
       }
     });
   });
@@ -1857,5 +1869,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
