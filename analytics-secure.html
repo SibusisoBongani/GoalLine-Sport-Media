@@ -5,41 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Analytics Login - GoalLine Sport Media</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
     body {
       font-family: 'Inter', Arial, sans-serif;
       background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      height: 100vh;
       margin: 0;
-      padding: 20px;
-    }
-    
-    .login-container {
-      width: 100%;
-      max-width: 400px;
-    }
-    
-    .logo {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    
-    .logo h1 {
-      color: white;
-      font-size: 28px;
-      font-weight: 700;
-    }
-    
-    .logo span {
-      color: #f39c12;
     }
     
     .login-box {
@@ -47,150 +20,96 @@
       padding: 40px;
       border-radius: 16px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      width: 350px;
     }
     
-    .login-box h2 {
+    h2 {
       color: #1e3c72;
-      margin-bottom: 10px;
-      font-size: 24px;
-      text-align: center;
-    }
-    
-    .login-box p {
-      color: #666;
       text-align: center;
       margin-bottom: 30px;
-      font-size: 14px;
     }
     
-    .input-group {
-      margin-bottom: 20px;
-    }
-    
-    .input-group label {
-      display: block;
-      margin-bottom: 8px;
-      color: #333;
-      font-weight: 500;
-      font-size: 14px;
-    }
-    
-    .input-group input {
+    input {
       width: 100%;
-      padding: 14px 16px;
+      padding: 12px;
+      margin-bottom: 20px;
       border: 2px solid #e0e0e0;
       border-radius: 8px;
       font-size: 16px;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
+      box-sizing: border-box;
     }
     
-    .input-group input:focus {
-      outline: none;
-      border-color: #f39c12;
-      box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
-    }
-    
-    .login-btn {
+    button {
       width: 100%;
-      padding: 14px;
+      padding: 12px;
       background: #f39c12;
       color: white;
       border: none;
       border-radius: 8px;
       font-size: 16px;
-      font-weight: 600;
+      font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s ease;
-      margin-top: 10px;
     }
     
-    .login-btn:hover {
+    button:hover {
       background: #e67e22;
     }
     
-    .error-message {
+    .error {
       color: #e74c3c;
       text-align: center;
       margin-top: 15px;
-      font-size: 14px;
-      min-height: 20px;
     }
     
-    .footer {
+    .back-link {
       text-align: center;
       margin-top: 20px;
-      color: rgba(255,255,255,0.7);
-      font-size: 12px;
     }
     
-    .footer a {
-      color: #f39c12;
+    .back-link a {
+      color: #666;
       text-decoration: none;
-    }
-    
-    .footer a:hover {
-      text-decoration: underline;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <div class="logo">
-      <h1>GoalLine <span>Analytics</span></h1>
-    </div>
+  <div class="login-box">
+    <h2>GoalLine Analytics</h2>
+    <p style="text-align: center; color: #666; margin-bottom: 30px;">Enter your password to view analytics</p>
     
-    <div class="login-box">
-      <h2>Secure Access</h2>
-      <p>Enter your password to view analytics dashboard</p>
-      
-      <div class="input-group">
-        <label>Password</label>
-        <input type="password" id="password" placeholder="Enter your password" onkeypress="handleKeyPress(event)">
-      </div>
-      
-      <button class="login-btn" id="loginBtn" onclick="checkPassword()">
-        Access Dashboard
-      </button>
-      
-      <div class="error-message" id="error"></div>
-    </div>
+    <input type="password" id="password" placeholder="Enter your password" onkeypress="handleKeyPress(event)">
+    <button onclick="checkPassword()">Access Dashboard</button>
     
-    <div class="footer">
+    <div class="error" id="error"></div>
+    
+    <div class="back-link">
       <a href="index.html">← Back to GoalLine Sport Media</a>
     </div>
   </div>
 
-<script>
-  // CHANGE THIS TO YOUR OWN PASSWORD!
-  const CORRECT_PASSWORD = '@Rappsta20040105';  // Use whatever password you set
-  
-  function checkPassword() {
-    const passwordInput = document.getElementById('password');
-    const errorDiv = document.getElementById('error');
+  <script>
+    // CHANGE THIS TO YOUR PASSWORD
+    const CORRECT_PASSWORD = 'GoalLine2026';
     
-    if (passwordInput.value === CORRECT_PASSWORD) {
-      // Store login status
-      sessionStorage.setItem('analytics_auth', 'true');
-      // Redirect to dashboard
-      window.location.href = 'analytics.html';
-    } else {
-      errorDiv.textContent = 'Incorrect password. Please try again.';
-      passwordInput.value = '';
+    function checkPassword() {
+      const password = document.getElementById('password').value;
+      const errorDiv = document.getElementById('error');
+      
+      if (password === CORRECT_PASSWORD) {
+        sessionStorage.setItem('analytics_auth', 'true');
+        window.location.href = 'analytics.html';
+      } else {
+        errorDiv.textContent = 'Incorrect password';
+        document.getElementById('password').value = '';
+      }
     }
-    return false;
-  }
-  
-  function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-      checkPassword();
+    
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        checkPassword();
+      }
     }
-  }
-  
-  // Check if already logged in
-  if (sessionStorage.getItem('analytics_auth') === 'true') {
-    window.location.href = 'analytics.html';
-  }
-</script>
+  </script>
 </body>
 </html>
