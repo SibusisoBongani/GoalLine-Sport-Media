@@ -1469,9 +1469,13 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Read More functionality with tracking
   document.querySelectorAll('.read-more').forEach(btn => {
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent any default behavior
+      event.stopPropagation(); // Stop event bubbling
+      
       const article = this.closest('.article');
       const isExpanded = article.classList.contains('expanded');
+      const moreText = article.querySelector('.more-text');
       
       // Track article view when expanding
       if (!isExpanded) {
@@ -1483,29 +1487,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       }
       
-      const moreText = article.querySelector('.more-text');
-      const readLess = article.querySelector('.read-less');
-      const overlay = document.querySelector('.overlay') || createOverlay();
-
+      // Toggle expansion
       if (isExpanded) {
         article.classList.remove('expanded');
-        overlay.style.display = 'none';
+        moreText.style.display = 'none';
         this.textContent = 'Read more';
-        if (readLess) readLess.style.display = 'none';
         
+        // Show all articles again
         document.querySelectorAll('.article').forEach(a => {
           a.style.display = 'block';
         });
       } else {
+        // First, collapse any other expanded articles
         document.querySelectorAll('.article.expanded').forEach(expandedArticle => {
           expandedArticle.classList.remove('expanded');
+          expandedArticle.querySelector('.more-text').style.display = 'none';
           expandedArticle.querySelector('.read-more').textContent = 'Read more';
         });
         
+        // Expand this article
         article.classList.add('expanded');
-        overlay.style.display = 'block';
+        moreText.style.display = 'inline';
         this.textContent = 'Read less';
         
+        // Hide other articles
         document.querySelectorAll('.article').forEach(a => {
           if (a !== article) {
             a.style.display = 'none';
@@ -1517,8 +1522,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Share functionality with tracking
   document.querySelectorAll('.share-btn').forEach(button => {
-    button.addEventListener('click', () => {
-      const article = button.closest('.article');
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      
+      const article = this.closest('.article');
       const articleId = article.id;
       const articleTitle = article.querySelector('h2').textContent;
       const shareUrl = `${window.location.origin}${window.location.pathname}#${articleId}`;
@@ -1526,48 +1534,61 @@ document.addEventListener('DOMContentLoaded', function() {
       // Track the share
       trackShare(articleId, articleTitle);
       
+      // Share functionality
       if (navigator.share) {
         navigator.share({
           title: articleTitle,
           url: shareUrl
-        }).catch(() => {
-          prompt('Copy this link:', shareUrl);
+        }).catch((error) => {
+          console.log('Share cancelled or failed:', error);
+          // Fallback to copy link
+          copyToClipboard(shareUrl);
+          alert('Link copied to clipboard!');
         });
       } else {
-        prompt('Copy this link:', shareUrl);
+        // Fallback for browsers that don't support native share
+        copyToClipboard(shareUrl);
+        alert('Link copied to clipboard!');
       }
     });
   });
+  
+  // Helper function to copy to clipboard
+  function copyToClipboard(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.body.removeChild(textarea);
+  }
 });
 
-// Read less functionality
-document.querySelectorAll('.read-less').forEach(btn => {
-  btn.addEventListener('click', function() {
-    const article = this.closest('.article');
-    article.classList.remove('expanded');
-    document.querySelector('.overlay').style.display = 'none';
-    article.querySelector('.read-more').textContent = 'Read more';
-    this.style.display = 'none';
-    
-    document.querySelectorAll('.article').forEach(a => {
-      a.style.display = 'block';
-    });
-  });
-});
-
-// Helper function to create overlay
+// Helper function to create overlay (if needed)
 function createOverlay() {
-  const overlay = document.createElement('div');
+  let overlay = document.querySelector('.overlay');
+  if (overlay) return overlay;
+  
+  overlay = document.createElement('div');
   overlay.className = 'overlay';
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    display: none;
+  `;
   document.body.appendChild(overlay);
   
   overlay.addEventListener('click', function() {
     const expandedArticle = document.querySelector('.article.expanded');
     if (expandedArticle) {
       expandedArticle.classList.remove('expanded');
-      overlay.style.display = 'none';
+      expandedArticle.querySelector('.more-text').style.display = 'none';
       expandedArticle.querySelector('.read-more').textContent = 'Read more';
-      expandedArticle.querySelector('.read-less').style.display = 'none';
+      overlay.style.display = 'none';
       
       document.querySelectorAll('.article').forEach(a => {
         a.style.display = 'block';
@@ -1836,4 +1857,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
