@@ -51,6 +51,7 @@
       border-radius: 6px;
       cursor: pointer;
       font-weight: 600;
+      font-size: 14px;
     }
     
     .refresh-btn:hover {
@@ -65,6 +66,7 @@
       border-radius: 6px;
       cursor: pointer;
       font-weight: 600;
+      font-size: 14px;
     }
     
     .logout-btn:hover {
@@ -149,6 +151,10 @@
       color: #1e3c72;
       text-decoration: none;
     }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -156,8 +162,8 @@
     <div class="header">
       <h1>📊 GoalLine Analytics Dashboard</h1>
       <div class="button-group">
-        <button class="refresh-btn" onclick="loadAllStats()">↻ Refresh Data</button>
-        <button class="logout-btn" onclick="logout()">Logout</button>
+        <button class="refresh-btn" id="refreshBtn">↻ Refresh Data</button>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
       </div>
     </div>
     
@@ -228,16 +234,24 @@
     const SUPABASE_ANON_KEY = 'sb_publishable_r2-avTDTSAwS5Z36AJ_DxA_bp7gHxqN';
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    function logout() {
+    // Make functions globally available
+    window.loadAllStats = async function() {
+      console.log('Refreshing data...');
+      try {
+        await loadTotalStats();
+        await loadTopArticles();
+        await loadRecentActivity();
+        console.log('Data refreshed successfully');
+      } catch (error) {
+        console.error('Error refreshing data:', error);
+      }
+    };
+
+    window.logout = function() {
+      console.log('Logging out...');
       sessionStorage.removeItem('analytics_auth');
       window.location.href = 'analytics-secure.html';
-    }
-
-    async function loadAllStats() {
-      await loadTotalStats();
-      await loadTopArticles();
-      await loadRecentActivity();
-    }
+    };
 
     async function loadTotalStats() {
       try {
@@ -271,7 +285,7 @@
         document.getElementById('totalShares').textContent = shares?.length || 0;
         
       } catch (err) {
-        console.error('Error:', err);
+        console.error('Error loading stats:', err);
       }
     }
 
@@ -332,7 +346,7 @@
         }
 
       } catch (err) {
-        console.error('Error:', err);
+        console.error('Error loading articles:', err);
       }
     }
 
@@ -363,12 +377,40 @@
         }
 
       } catch (err) {
-        console.error('Error:', err);
+        console.error('Error loading activity:', err);
       }
     }
 
-    // Load data on page load
-    document.addEventListener('DOMContentLoaded', loadAllStats);
+    // Set up button listeners when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Dashboard loaded, setting up buttons...');
+      
+      // Load initial data
+      loadTotalStats();
+      loadTopArticles();
+      loadRecentActivity();
+      
+      // Set up refresh button
+      const refreshBtn = document.getElementById('refreshBtn');
+      if (refreshBtn) {
+        refreshBtn.onclick = function() {
+          console.log('Refresh clicked');
+          loadTotalStats();
+          loadTopArticles();
+          loadRecentActivity();
+        };
+      }
+      
+      // Set up logout button
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.onclick = function() {
+          console.log('Logout clicked');
+          sessionStorage.removeItem('analytics_auth');
+          window.location.href = 'analytics-secure.html';
+        };
+      }
+    });
   </script>
 </body>
 </html>
