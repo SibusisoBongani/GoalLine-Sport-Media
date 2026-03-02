@@ -51,7 +51,6 @@
       border-radius: 6px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 14px;
     }
     
     .refresh-btn:hover {
@@ -66,7 +65,6 @@
       border-radius: 6px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 14px;
     }
     
     .logout-btn:hover {
@@ -151,10 +149,6 @@
       color: #1e3c72;
       text-decoration: none;
     }
-    
-    .back-link:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
 <body>
@@ -162,8 +156,8 @@
     <div class="header">
       <h1>📊 GoalLine Analytics Dashboard</h1>
       <div class="button-group">
-        <button class="refresh-btn" id="refreshBtn">↻ Refresh Data</button>
-        <button class="logout-btn" id="logoutBtn">Logout</button>
+        <button class="refresh-btn" onclick="refreshData()">↻ Refresh Data</button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
       </div>
     </div>
     
@@ -229,41 +223,39 @@
       window.location.href = 'analytics-secure.html';
     }
     
-    // Supabase credentials
+    // Supabase credentials - use a different variable name
     const SUPABASE_URL = 'https://vafvktuinjpbglvtkrvz.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_r2-avTDTSAwS5Z36AJ_DxA_bp7gHxqN';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    // Use supabaseClient instead of supabase to avoid conflicts
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Make functions globally available
-    window.loadAllStats = async function() {
-      console.log('Refreshing data...');
-      try {
-        await loadTotalStats();
-        await loadTopArticles();
-        await loadRecentActivity();
-        console.log('Data refreshed successfully');
-      } catch (error) {
-        console.error('Error refreshing data:', error);
-      }
-    };
-
+    // Logout function
     window.logout = function() {
       console.log('Logging out...');
       sessionStorage.removeItem('analytics_auth');
       window.location.href = 'analytics-secure.html';
     };
 
+    // Refresh function
+    window.refreshData = function() {
+      console.log('Refreshing data...');
+      loadTotalStats();
+      loadTopArticles();
+      loadRecentActivity();
+    };
+
     async function loadTotalStats() {
       try {
         // Get all page views
-        const { data: views, error: viewsError } = await supabase
+        const { data: views, error: viewsError } = await supabaseClient
           .from('page_views')
           .select('*');
         
         if (viewsError) throw viewsError;
         
         // Calculate unique visitors
-        const uniqueVisitors = new Set(views?.map(v => v.visitor_id)).size;
+        const uniqueVisitors = new Set(views?.map(v => v.visitor_id) || []).size;
         document.getElementById('totalVisitors').textContent = uniqueVisitors || 0;
         
         // Total views
@@ -277,7 +269,7 @@
         document.getElementById('todayViews').textContent = todayViews;
         
         // Get shares
-        const { data: shares, error: sharesError } = await supabase
+        const { data: shares, error: sharesError } = await supabaseClient
           .from('shares')
           .select('*');
         
@@ -292,7 +284,7 @@
     async function loadTopArticles() {
       try {
         // Get all page views with article titles
-        const { data: views, error: viewsError } = await supabase
+        const { data: views, error: viewsError } = await supabaseClient
           .from('page_views')
           .select('article_id, article_title')
           .not('article_id', 'is', null);
@@ -316,7 +308,7 @@
         });
 
         // Get share counts
-        const { data: shares, error: sharesError } = await supabase
+        const { data: shares, error: sharesError } = await supabaseClient
           .from('shares')
           .select('article_id');
 
@@ -347,12 +339,13 @@
 
       } catch (err) {
         console.error('Error loading articles:', err);
+        document.getElementById('topArticlesTable').innerHTML = '<tr><td colspan="3" class="loading">Error loading data</td></tr>';
       }
     }
 
     async function loadRecentActivity() {
       try {
-        const { data: recent, error } = await supabase
+        const { data: recent, error } = await supabaseClient
           .from('page_views')
           .select('*')
           .order('viewed_at', { ascending: false })
@@ -378,38 +371,16 @@
 
       } catch (err) {
         console.error('Error loading activity:', err);
+        document.getElementById('recentActivityTable').innerHTML = '<tr><td colspan="2" class="loading">Error loading data</td></tr>';
       }
     }
 
-    // Set up button listeners when page loads
+    // Load data when page loads
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('Dashboard loaded, setting up buttons...');
-      
-      // Load initial data
+      console.log('Dashboard loaded, fetching data...');
       loadTotalStats();
       loadTopArticles();
       loadRecentActivity();
-      
-      // Set up refresh button
-      const refreshBtn = document.getElementById('refreshBtn');
-      if (refreshBtn) {
-        refreshBtn.onclick = function() {
-          console.log('Refresh clicked');
-          loadTotalStats();
-          loadTopArticles();
-          loadRecentActivity();
-        };
-      }
-      
-      // Set up logout button
-      const logoutBtn = document.getElementById('logoutBtn');
-      if (logoutBtn) {
-        logoutBtn.onclick = function() {
-          console.log('Logout clicked');
-          sessionStorage.removeItem('analytics_auth');
-          window.location.href = 'analytics-secure.html';
-        };
-      }
     });
   </script>
 </body>
