@@ -5,7 +5,6 @@
   <title>GoalLine Sport Media | Sports News & Match Highlights</title>
   <meta name="description" content="Get the latest sports news, match highlights, and insights from South Africa and beyond. Goalline Sport Media keeps you updated.">
   
-  
   <meta name="google-site-verification" content="a2HkX_7AtErIfE0py3FVIfF1AwzqqPO6pFJS8qAeVxo" />
 
   <!-- Open Graph Meta Tags -->
@@ -17,11 +16,87 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
+  <!-- Supabase Library -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Supabase Configuration and Tracking Functions -->
+  <script>
+    // REPLACE THESE WITH YOUR ACTUAL SUPABASE KEYS (from Step 3)
+    const SUPABASE_URL = 'https://vafvktuinjpbglvtkrvz.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_r2-avTDTSAwS5Z36AJ_DxA_bp7gHxqN';
+    
+    // Initialize Supabase
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    // Function to get or create a visitor ID
+    function getVisitorId() {
+      let visitorId = localStorage.getItem('goalline_visitor_id');
+      if (!visitorId) {
+        visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('goalline_visitor_id', visitorId);
+      }
+      return visitorId;
+    }
+    
+    // Function to track page views
+    async function trackPageView(articleInfo = null) {
+      try {
+        const visitorId = getVisitorId();
+        const currentUrl = window.location.pathname;
+        
+        let articleId = null;
+        let articleTitle = null;
+        
+        if (articleInfo) {
+          articleId = articleInfo.id;
+          articleTitle = articleInfo.title;
+        }
+        
+        // Insert into Supabase
+        const { error } = await supabase
+          .from('page_views')
+          .insert([
+            {
+              page_url: currentUrl,
+              article_id: articleId,
+              article_title: articleTitle,
+              visitor_id: visitorId,
+              referrer: document.referrer || null,
+              user_agent: navigator.userAgent
+            }
+          ]);
+        
+        if (error) console.error('Error tracking view:', error);
+      } catch (err) {
+        console.error('Failed to track view:', err);
+      }
+    }
+    
+    // Function to track shares
+    async function trackShare(articleId, articleTitle) {
+      try {
+        const { error } = await supabase
+          .from('shares')
+          .insert([
+            {
+              article_id: articleId,
+              article_title: articleTitle,
+              share_type: 'native_share'
+            }
+          ]);
+        
+        if (error) console.error('Error tracking share:', error);
+      } catch (err) {
+        console.error('Failed to track share:', err);
+      }
+    }
+  </script>
+
   <!-- Favicon Configuration -->
   <link rel="icon" href="images/GSM-logo.png" type="image/png">
   <link rel="apple-touch-icon" href="images/GSM-losp.png">
   
+  <!-- Stylesheets and Fonts -->
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Libertinus+Mono&display=swap" rel="stylesheet" />
@@ -1839,6 +1914,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
 
